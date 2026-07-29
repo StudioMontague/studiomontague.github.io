@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Montague — Independent Game Development Studio</title>
+<meta name="description" content="Studio Montague is an independent UK game development studio, currently in production on Seed Runner — a 3D physics-based survival-adventure for PC.">
+<link rel="icon" href="assets/sm-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14100c;
+    --bg-2:#1c1712;
+    --gold:#c9a24b;
+    --gold-soft:#a9884a;
+    --cream:#efe6d4;
+    --muted:#a89a86;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(ellipse at 50% -10%, #241d16 0%, var(--bg) 55%, #0d0a07 100%);
+    color:var(--cream);
+    font-family:'EB Garamond', Georgia, serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .wrap{
+    max-width:720px;
+    width:100%;
+    padding:64px 24px 40px;
+    text-align:center;
+    flex:1;
+  }
+  .logo{
+    width:150px;
+    height:150px;
+    border-radius:12px;
+    box-shadow:0 0 0 1px rgba(201,162,75,0.35), 0 18px 40px rgba(0,0,0,0.55);
+    margin-bottom:28px;
+  }
+  h1{
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    letter-spacing:0.12em;
+    font-size:clamp(28px,5vw,42px);
+    margin:0 0 6px;
+    color:var(--cream);
+    text-shadow:0 2px 12px rgba(0,0,0,0.4);
+  }
+  .tagline{
+    font-style:italic;
+    color:var(--gold);
+    font-size:18px;
+    margin:0 0 40px;
+    letter-spacing:0.02em;
+  }
+  .rule{
+    width:64px;
+    height:1px;
+    background:var(--gold-soft);
+    margin:0 auto 40px;
+    opacity:0.6;
+  }
+  .status{
+    display:inline-block;
+    font-family:'EB Garamond', serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    border:1px solid rgba(201,162,75,0.4);
+    border-radius:999px;
+    padding:6px 18px;
+    margin-bottom:28px;
+  }
+  h2{
+    font-family:'Cinzel', serif;
+    font-weight:500;
+    font-size:22px;
+    letter-spacing:0.04em;
+    color:var(--cream);
+    margin:0 0 14px;
+  }
+  p{
+    font-size:19px;
+    line-height:1.65;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+  .project{
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(201,162,75,0.18);
+    border-radius:14px;
+    padding:36px 32px;
+    margin:8px 0 48px;
+    text-align:left;
+  }
+  .project h2{text-align:center;}
+  .project p{text-align:center;}
+  .links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .links a{
+    font-family:'EB Garamond', serif;
+    font-size:16px;
+    color:var(--cream);
+    text-decoration:none;
+    border:1px solid rgba(201,162,75,0.4);
+    border-radius:999px;
+    padding:10px 24px;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .links a:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+    background:rgba(201,162,75,0.06);
+  }
+  footer{
+    width:100%;
+    text-align:center;
+    padding:28px 24px;
+    font-size:13px;
+    color:#6b5f4e;
+    border-top:1px solid rgba(201,162,75,0.12);
+  }
+  footer a{color:#8a7654; text-decoration:none;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="assets/sm-logo.jpg" alt="Studio Montague logo">
+    <h1>Studio Montague</h1>
+    <p class="tagline">Independent Game Development Studio</p>
+    <div class="rule"></div>
+
+    <span class="status">In active pre‑production</span>
+
+    <div class="project">
+      <h2>Seed Runner <span style="color:var(--muted); font-weight:400; font-style:italic; font-size:16px;">(working title)</span></h2>
+      <p>A 3D physics-based survival-adventure for PC — currently in development by a solo, founder-led studio in the United Kingdom, working toward an itch.io prototype and eventual release on Steam.</p>
+    </div>
+
+    <div class="links">
+      <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.indiedb.com/studios/studiomontague" target="_blank" rel="noopener">IndieDB</a>
+      <a href="https://x.com/StudioMontague" target="_blank" rel="noopener">X / Twitter</a>
+      <a href="mailto:hello@studiomontague.dev">Contact</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Studio Montague. All rights reserved. &nbsp;·&nbsp; <a href="mailto:hello@studiomontague.dev">hello@studiomontague.dev</a>
+  </footer>
+</body>
+</html>
