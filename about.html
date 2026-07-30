@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Studio Montague</title>
+<meta name="description" content="Studio Montague is an independent, solo game development studio in Brighton, UK, currently in production on Seed.Runner.">
+<link rel="icon" href="assets/sm-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Limelight&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --cream:#efe6d4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;}
+  body{
+    background:linear-gradient(
+      to bottom,
+      #1b1916 0%,
+      #2a2620 16%,
+      #34301f 34%,
+      #313a26 52%,
+      #223622 68%,
+      #17301d 84%,
+      #0e2415 100%
+    );
+    color:var(--cream);
+    font-family:'EB Garamond', Georgia, serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  /* top nav */
+  .topnav{
+    position:relative;
+    display:block;
+    width:100%;
+    min-height:230px;
+    background-color:#1f1911;
+    overflow:hidden;
+    box-sizing:border-box;
+  }
+  .topnav-link{
+    position:absolute;
+    inset:0;
+    display:block;
+  }
+  .topnav-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:left top;
+    display:block;
+  }
+  .topnav-links-bar{
+    width:100%;
+    background-color:#1f1911;
+    border-bottom:1px solid rgba(201,162,75,0.14);
+    box-sizing:border-box;
+  }
+  .topnav-links-inner{
+    width:100%;
+    max-width:960px;
+    margin:0 auto;
+    padding:16px 24px;
+    box-sizing:border-box;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+  }
+  .nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    align-items:center;
+    gap:26px;
+  }
+  .nav-links a{
+    color:#d0b07f;
+    font-family:'Limelight', serif;
+    font-weight:400;
+    font-size:18px;
+    line-height:1;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-decoration:none;
+    text-underline-offset:5px;
+    opacity:0.85;
+    transition:opacity .2s ease, color .2s ease;
+  }
+  .nav-links a .drop-cap{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:1.5em;
+    height:1.5em;
+    margin-right:0.14em;
+    border:1px solid rgba(201,162,75,0.45);
+    border-radius:3px;
+    background:rgba(0,0,0,0.2);
+    color:#c9a24b;
+    font-size:0.82em;
+    line-height:1;
+    vertical-align:middle;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .nav-links a:hover .drop-cap{
+    color:var(--cream);
+    border-color:#c9a24b;
+    background:rgba(201,162,75,0.1);
+  }
+  .nav-links a.active{
+    text-decoration:underline;
+    opacity:1;
+  }
+  .nav-links a:hover{
+    opacity:1;
+    color:var(--cream);
+  }
+  .footer-links{
+    display:flex;
+    justify-content:flex-end;
+    gap:16px;
+    margin:12px 0 0;
+  }
+  .footer-links a{
+    color:#d0b07f;
+    font-family:'Limelight', serif;
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    text-decoration:none;
+    text-underline-offset:3px;
+    opacity:0.85;
+  }
+  .footer-links a .drop-cap{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:1.5em;
+    height:1.5em;
+    margin-right:0.14em;
+    border:1px solid rgba(201,162,75,0.45);
+    border-radius:3px;
+    background:rgba(0,0,0,0.2);
+    color:#c9a24b;
+    font-size:0.82em;
+    line-height:1;
+    vertical-align:middle;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .footer-links a:hover{ opacity:1; }
+  .footer-links a:hover .drop-cap{
+    color:#f5ecd8;
+    border-color:#f5ecd8;
+    background:rgba(201,162,75,0.1);
+  }
+  .footer-links a.active{
+    text-decoration:underline;
+    opacity:1;
+  }
+  .icon-row{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:18px; }
+  .icon-row a{
+    color:#c9a24b;
+    font-size:16px;
+    width:34px; height:34px;
+    border:1px solid rgba(201,162,75,0.35);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .icon-row a:hover{
+    border-color:#c9a24b;
+    background:rgba(201,162,75,0.08);
+  }
+  .icon-row.icon-row-top{ gap:24px; }
+  .icon-row.icon-row-top a{
+    width:auto;
+    height:auto;
+    border:none;
+    border-radius:0;
+    color:#d0b07f;
+    opacity:0.85;
+    font-size:27px;
+    line-height:1;
+    transition:opacity .2s ease, color .2s ease;
+  }
+  .icon-row.icon-row-top a:hover{
+    border:none;
+    background:none;
+    opacity:1;
+    color:var(--cream);
+  }
+  .icon-row.icon-row-footer a{
+    color:#d0b07f;
+    border-color:rgba(239,230,212,0.4);
+  }
+  .icon-row.icon-row-footer a:hover{
+    border-color:#f5ecd8;
+    color:#f5ecd8;
+    background:rgba(201,162,75,0.08);
+  }
+
+  .wrap{
+    max-width:960px;
+    width:100%;
+    padding:clamp(56px, 10vw, 96px) 24px clamp(40px, 6vw, 64px);
+    text-align:center;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+  }
+  .tagline{
+    color:#d0b07f;
+    font-size:16px;
+    margin:0 0 40px;
+    letter-spacing:0.02em;
+  }
+  .rule{
+    width:64px;
+    height:1px;
+    background:#a9884a;
+    margin:clamp(40px, 6vw, 64px) auto 40px;
+    opacity:0.6;
+  }
+  .status{
+    display:inline-block;
+    font-family:'EB Garamond', serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#c2a45a;
+    border:1px solid rgba(194,164,90,0.4);
+    border-radius:999px;
+    padding:6px 18px;
+    margin-bottom:36px;
+  }
+  h2{
+    font-family:'Orbitron', sans-serif;
+    font-weight:700;
+    font-size:clamp(46px, 8.5vw, 70px);
+    letter-spacing:0.04em;
+    color:var(--cream);
+    margin:0 0 14px;
+    text-shadow:0 2px 14px rgba(0,0,0,0.45);
+  }
+  p{
+    font-size:19px;
+    line-height:1.65;
+    color:#a89a86;
+    margin:0 0 18px;
+  }
+  footer{
+    width:100%;
+    padding:28px 24px;
+    font-size:13px;
+    color:#6b8a63;
+    border-top:1px solid rgba(126,184,108,0.16);
+    background:#1f1911;
+  }
+  footer p{ font-size:13px; margin:0; color:#d0b07f; }
+  footer a{color:#d0b07f; text-decoration:none;}
+  .footer-grid{
+    max-width:960px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:16px 24px;
+  }
+  .footer-col-left{ flex:1 1 auto; text-align:left; }
+  .footer-col-left .tagline{ margin:0 0 4px; }
+  .footer-copyright{ margin:0; font-size:13px; }
+  .footer-col-right{
+    flex:0 0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:4px;
+  }
+  .icon-row.icon-row-footer{ margin:0; }
+
+  /* about page */
+  .about-intro{
+    max-width:640px;
+    margin:0 auto;
+  }
+  .about-intro h1{
+    font-family:'Orbitron', sans-serif;
+    font-weight:700;
+    font-size:clamp(30px, 5vw, 40px);
+    letter-spacing:0.05em;
+    color:var(--cream);
+    margin:0 0 18px;
+  }
+  .about-intro p{
+    font-size:18px;
+    color:#c9a24b;
+  }
+  .section-label{
+    font-family:'Orbitron', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:#c9a24b;
+    margin:clamp(44px, 7vw, 68px) 0 32px;
+  }
+  .team-card{
+    max-width:600px;
+    margin:0 auto;
+    background:linear-gradient(160deg, rgba(122,166,96,0.05), rgba(255,255,255,0.02));
+    border:1px solid rgba(139,178,110,0.22);
+    border-radius:14px;
+    padding:clamp(36px, 6vw, 48px) clamp(24px, 5vw, 40px);
+    text-align:center;
+  }
+  .avatar-circle{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    border:1px solid rgba(201,162,75,0.4);
+    background:rgba(0,0,0,0.18);
+    overflow:hidden;
+    margin:0 auto 20px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.35);
+  }
+  .avatar-circle img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .team-card p.team-name{
+    font-family:'Orbitron', sans-serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.03em;
+    color:var(--cream);
+    margin:0 0 6px;
+  }
+  .team-card p.team-role{
+    font-size:13px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:#c9a24b;
+    margin:0 0 20px;
+  }
+  .team-card p{
+    font-size:17px;
+    line-height:1.7;
+    color:#a89a86;
+    text-align:left;
+    margin:0 0 16px;
+  }
+  .team-card p:last-child{
+    margin-bottom:0;
+  }
+
+  /* minimal entrance + hover animation stack */
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes drawRule{
+    from{ opacity:0; transform:scaleX(0); }
+    to{ opacity:0.6; transform:scaleX(1); }
+  }
+  .about-intro p,
+  .section-label,
+  .team-card{
+    animation:fadeUp 0.7s cubic-bezier(.16,.84,.44,1) both;
+  }
+  .about-intro p:nth-of-type(1){ animation-delay:0.05s; }
+  .about-intro p:nth-of-type(2){ animation-delay:0.16s; }
+  .rule{
+    opacity:0;
+    transform-origin:center;
+    animation:drawRule 0.6s cubic-bezier(.16,.84,.44,1) 0.28s both;
+  }
+  .section-label{ animation-delay:0.42s; }
+  .team-card{ animation-delay:0.54s; }
+  .avatar-circle{
+    opacity:0;
+    animation:fadeUp 0.6s cubic-bezier(.16,.84,.44,1) 0.68s both;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .avatar-circle:hover{
+    transform:scale(1.04);
+    border-color:rgba(201,162,75,0.75);
+  }
+  .team-card{
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .team-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 34px rgba(0,0,0,0.32);
+    border-color:rgba(139,178,110,0.4);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .about-intro p,
+    .rule,
+    .section-label,
+    .team-card,
+    .avatar-circle{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+    .team-card,
+    .avatar-circle{
+      transition:none !important;
+    }
+  }
+
+  /* mobile */
+  @media (max-width:640px){
+    .topnav{ min-height:150px; }
+    .topnav-links-inner{ justify-content:center; padding:12px 16px; gap:10px 18px; }
+    .icon-row.icon-row-top{ gap:16px; }
+    .icon-row.icon-row-top a{ font-size:22px; }
+    .nav-links{ gap:14px; }
+    .nav-links a{ font-size:15px; }
+    .nav-links a .drop-cap{ width:1.35em; height:1.35em; }
+    .wrap{ padding-left:16px; padding-right:16px; }
+    .about-intro p{ font-size:16px; }
+    .section-label{ font-size:12px; letter-spacing:0.18em; }
+    .team-card{ padding:28px 20px; }
+    .avatar-circle{ width:110px; height:110px; }
+    .footer-grid{ flex-direction:column; align-items:center; text-align:center; gap:16px; }
+    .footer-col-left{ text-align:center; }
+    .footer-col-left .tagline{ text-align:center; }
+    .footer-col-right{ align-items:center; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <a href="index.html" aria-label="Studio Montague — Home" class="topnav-link">
+      <img src="assets/sm-banner.jpg" alt="Studio Montague" class="topnav-img">
+    </a>
+  </nav>
+
+  <div class="topnav-links-bar">
+    <div class="topnav-links-inner">
+      <div class="icon-row icon-row-top">
+        <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+        <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <div class="nav-links">
+        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener"><span class="drop-cap">B</span>log</a>
+        <a href="about.html" class="active"><span class="drop-cap">A</span>bout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="about-intro">
+      <p>Studio Montague is an independent, solo game development studio based in Brighton, UK.</p>
+      <p>Our mission is to build small, story-rich worlds worth remembering.</p>
+    </div>
+
+    <div class="rule"></div>
+
+    <p class="section-label">The Solodev</p>
+
+    <div class="team-card">
+      <div class="avatar-circle"><img src="assets/graham-avatar.jpg" alt="Graham Ainge"></div>
+      <p class="team-name" style="text-align:center;">Graham Ainge</p>
+      <p class="team-role" style="text-align:center;">Founder &amp; Lead Developer</p>
+      <p>Graham is the founder — and, for now, the only member — of Studio Montague. Before games, he spent over a decade teaching science, and before that he toured as a keyboardist and vocalist in a rock band, signed to Island Records.</p>
+      <p>Playing narrative-driven games with three older siblings since the Amiga 500 era, titles like <em>Monkey Island</em> (aged 7), <em>Ocarina of Time</em> (aged 14), and <em>Skyrim</em> (too old), shaped how he thinks about worlds and stories. The gameplay of other titles, such as <em>Turrican</em>, <em>Goldeneye</em> and <em>Halo</em> were equally capturing for their competitive edge and precision.</p>
+      <p>Seed.Runner draws on all three chapters — the discipline of teaching, the collaboration of a band, and a lifelong love of games built to be explored.</p>
+      <p>He works out of a home studio in Brighton, UK, with two whippets asleep in the corner.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col-left">
+        <p class="tagline">Studio Montague is an independent, solo game development studio<br>based in Brighton, UK.</p>
+        <p class="footer-copyright">&copy; 2026 Studio Montague. All rights reserved.</p>
+      </div>
+      <div class="footer-col-right">
+        <div class="icon-row icon-row-footer">
+          <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+          <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <div class="footer-links">
+          <a href="#"><span class="drop-cap">F</span>AQ</a>
+          <a href="#"><span class="drop-cap">C</span>ontact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
