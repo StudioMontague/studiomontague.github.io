@@ -4,24 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Montague — Independent Game Development Studio</title>
-<meta name="description" content="Studio Montague is an independent UK game development studio, currently in production on Seed Runner — a 3D physics-based survival-adventure for PC.">
+<meta name="description" content="Studio Montague is an independent UK game development studio, currently in production on Seed.Runner — a 3D physics-based survival-adventure.">
 <link rel="icon" href="assets/sm-logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
-    --bg:#14100c;
-    --bg-2:#1c1712;
-    --gold:#c9a24b;
-    --gold-soft:#a9884a;
     --cream:#efe6d4;
-    --muted:#a89a86;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:radial-gradient(ellipse at 50% -10%, #241d16 0%, var(--bg) 55%, #0d0a07 100%);
+    background:linear-gradient(
+      to bottom,
+      #1b1916 0%,
+      #2a2620 16%,
+      #34301f 34%,
+      #313a26 52%,
+      #223622 68%,
+      #17301d 84%,
+      #0e2415 100%
+    );
     color:var(--cream);
     font-family:'EB Garamond', Georgia, serif;
     min-height:100vh;
@@ -29,32 +34,146 @@
     flex-direction:column;
     align-items:center;
   }
-  .wrap{
-    max-width:720px;
+
+  /* top nav */
+  .topnav{
     width:100%;
-    padding:64px 24px 40px;
+    min-height:184px;
+    padding:20px 24px;
+    border-bottom:1px solid rgba(201,162,75,0.14);
+    background:#1f1911;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+  }
+  .topnav-inner{
+    width:100%;
+    max-width:960px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-logo{
+    width:115px;
+    height:115px;
+    border-radius:16px;
+    display:block;
+  }
+  .topnav-right{
+    display:flex;
+    align-items:center;
+    gap:36px;
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:26px;
+  }
+  .nav-links a{
+    color:#c9a24b;
+    font-size:23px;
+    line-height:1;
+    letter-spacing:0.02em;
+    text-decoration:none;
+    text-underline-offset:3px;
+    opacity:0.85;
+    transition:opacity .2s ease, color .2s ease;
+  }
+  .nav-links a.active{
+    text-decoration:underline;
+    opacity:1;
+  }
+  .nav-links a:hover{
+    opacity:1;
+    color:var(--cream);
+  }
+  .footer-links{
+    display:flex;
+    justify-content:flex-end;
+    gap:16px;
+    margin:12px 0 0;
+  }
+  .footer-links a{
+    color:#c9a24b;
+    font-size:13px;
+    text-decoration:none;
+    text-underline-offset:3px;
+    opacity:0.85;
+  }
+  .footer-links a:hover{ opacity:1; }
+  .footer-links a.active{
+    text-decoration:underline;
+    opacity:1;
+  }
+  .icon-row{ display:flex; gap:18px; }
+  .icon-row a{
+    color:#c9a24b;
+    font-size:16px;
+    width:34px; height:34px;
+    border:1px solid rgba(201,162,75,0.35);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .icon-row a:hover{
+    border-color:#c9a24b;
+    background:rgba(201,162,75,0.08);
+  }
+  .icon-row.icon-row-top{ gap:24px; }
+  .icon-row.icon-row-top a{
+    width:auto;
+    height:auto;
+    border:none;
+    border-radius:0;
+    color:#c9a24b;
+    opacity:0.85;
+    font-size:27px;
+    line-height:1;
+    transition:opacity .2s ease, color .2s ease;
+  }
+  .icon-row.icon-row-top a:hover{
+    border:none;
+    background:none;
+    opacity:1;
+    color:var(--cream);
+  }
+  .icon-row.icon-row-footer a{
+    color:var(--cream);
+    border-color:rgba(239,230,212,0.4);
+  }
+  .icon-row.icon-row-footer a:hover{
+    border-color:#f5ecd8;
+    color:#f5ecd8;
+    background:rgba(201,162,75,0.08);
+  }
+
+  .wrap{
+    max-width:960px;
+    width:100%;
+    padding:clamp(56px, 10vw, 96px) 24px clamp(40px, 6vw, 64px);
     text-align:center;
     flex:1;
+    display:flex;
+    flex-direction:column;
   }
   .logo{
-    width:150px;
-    height:150px;
-    border-radius:12px;
+    width:230px;
+    height:230px;
+    border-radius:16px;
     box-shadow:0 0 0 1px rgba(201,162,75,0.35), 0 18px 40px rgba(0,0,0,0.55);
-    margin-bottom:28px;
+    margin-bottom:24px;
   }
-  h1{
-    font-family:'Cinzel', serif;
-    font-weight:700;
-    letter-spacing:0.12em;
-    font-size:clamp(28px,5vw,42px);
-    margin:0 0 6px;
-    color:var(--cream);
-    text-shadow:0 2px 12px rgba(0,0,0,0.4);
+  .footer-mark{
+    display:block;
+    width:80px;
+    height:80px;
+    object-fit:contain;
+    margin:0 auto 16px;
   }
   .tagline{
-    font-style:italic;
-    color:var(--gold);
+    color:var(--cream);
     font-size:18px;
     margin:0 0 40px;
     letter-spacing:0.02em;
@@ -62,7 +181,7 @@
   .rule{
     width:64px;
     height:1px;
-    background:var(--gold-soft);
+    background:#a9884a;
     margin:0 auto 40px;
     opacity:0.6;
   }
@@ -72,93 +191,484 @@
     font-size:13px;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color:var(--gold);
-    border:1px solid rgba(201,162,75,0.4);
+    color:#c2a45a;
+    border:1px solid rgba(194,164,90,0.4);
     border-radius:999px;
     padding:6px 18px;
-    margin-bottom:28px;
+    margin-bottom:36px;
   }
   h2{
-    font-family:'Cinzel', serif;
-    font-weight:500;
-    font-size:22px;
+    font-family:'Orbitron', sans-serif;
+    font-weight:700;
+    font-size:clamp(46px, 8.5vw, 70px);
     letter-spacing:0.04em;
     color:var(--cream);
     margin:0 0 14px;
+    text-shadow:0 2px 14px rgba(0,0,0,0.45);
   }
   p{
     font-size:19px;
     line-height:1.65;
-    color:var(--muted);
+    color:#a89a86;
     margin:0 0 18px;
   }
   .project{
-    background:rgba(255,255,255,0.02);
-    border:1px solid rgba(201,162,75,0.18);
+    position:relative;
+    background:linear-gradient(160deg, rgba(122,166,96,0.05), rgba(255,255,255,0.02));
+    border:1px solid rgba(139,178,110,0.22);
     border-radius:14px;
-    padding:36px 32px;
-    margin:8px 0 48px;
+    padding:clamp(54px, 9vw, 84px) clamp(24px, 5vw, 44px) 21px;
+    margin:clamp(16px, 3vw, 32px) 0 clamp(24px, 5vw, 40px);
     text-align:left;
   }
+  .framed-badge{
+    display:inline-block;
+    padding:18px 20px 6px;
+    border:1px solid rgba(224,189,106,0.4);
+    border-radius:10px;
+    background:rgba(0,0,0,0.14);
+    box-shadow:0 4px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .title-tracked{
+    display:inline-block;
+    position:relative;
+    white-space:nowrap;
+  }
+  .title-tracked .letter{
+    display:inline-block;
+    opacity:0;
+    transform:translateX(-14px);
+  }
+  .project.in-view .title-tracked .letter{
+    animation:letterIn 0.6s ease-out forwards;
+  }
+  .project.in-view .title-tracked .letter:nth-child(1){ animation-delay:0.00s; }
+  .project.in-view .title-tracked .letter:nth-child(2){ animation-delay:0.12s; }
+  .project.in-view .title-tracked .letter:nth-child(3){ animation-delay:0.24s; }
+  .project.in-view .title-tracked .letter:nth-child(4){ animation-delay:0.36s; }
+  .project.in-view .title-tracked .letter:nth-child(5){ animation-delay:0.48s; }
+  .project.in-view .title-tracked .letter:nth-child(6){ animation-delay:0.60s; }
+  .project.in-view .title-tracked .letter:nth-child(7){ animation-delay:0.72s; }
+  .project.in-view .title-tracked .letter:nth-child(8){ animation-delay:0.84s; }
+  .project.in-view .title-tracked .letter:nth-child(9){ animation-delay:0.96s; }
+  .project.in-view .title-tracked .letter:nth-child(10){ animation-delay:1.08s; }
+  .project.in-view .title-tracked .letter:nth-child(11){ animation-delay:1.20s; }
+  @keyframes letterIn{
+    from{ opacity:0; transform:translateX(-14px); }
+    to{ opacity:1; transform:translateX(0); }
+  }
+  .reveal-text{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  .project.in-view .reveal-text{
+    animation:revealIn 0.9s ease-out forwards;
+  }
+  @keyframes revealIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .reveal-text-inv{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+  .project.in-view .reveal-text-inv{
+    animation:revealInDown 0.9s ease-out forwards;
+  }
+  @keyframes revealInDown{
+    from{ opacity:0; transform:translateY(-10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .letter-effect{
+    opacity:0;
+    transform:translateX(-14px);
+  }
+  .project.in-view .letter-effect{
+    animation:letterIn 0.6s ease-out forwards;
+  }
+  .tire-track-text{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    pointer-events:none;
+    background-color:#4a3a24;
+    background-image:
+      linear-gradient(45deg, rgba(20,16,12,0.6) 24%, transparent 24%, transparent 76%, rgba(20,16,12,0.6) 76%),
+      linear-gradient(45deg, rgba(20,16,12,0.6) 24%, transparent 24%, transparent 76%, rgba(20,16,12,0.6) 76%),
+      linear-gradient(-45deg, rgba(190,184,171,0.3) 40%, transparent 40%, transparent 60%, rgba(190,184,171,0.3) 60%),
+      radial-gradient(ellipse 45% 40% at 22% 28%, rgba(0,0,0,0.22), transparent 65%),
+      radial-gradient(ellipse 40% 35% at 68% 72%, rgba(255,255,255,0.16), transparent 65%),
+      radial-gradient(ellipse 35% 30% at 85% 18%, rgba(0,0,0,0.18), transparent 65%),
+      radial-gradient(ellipse 38% 32% at 40% 88%, rgba(255,255,255,0.13), transparent 65%);
+    background-size:9px 9px, 9px 9px, 16px 16px, auto, auto, auto, auto;
+    background-position:0 0, 4.5px 4.5px, 0 0, 0 0, 0 0, 0 0, 0 0;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    clip-path:polygon(60% 0%, 72% 0%, 80% 50%, 83% 100%, 71% 100%, 68% 50%);
+    -webkit-mask-image:
+      linear-gradient(to top, black 50%, transparent 50%),
+      linear-gradient(to right, transparent 58%, black 67%, black 74%, transparent 85%),
+      radial-gradient(circle at 61% 6%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 63% 20%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 60% 38%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 65% 52%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 62% 68%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 64% 84%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 61% 96%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 79% 8%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 81% 24%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 76% 40%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 80% 56%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 75% 72%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 79% 88%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px);
+    mask-image:
+      linear-gradient(to top, black 50%, transparent 50%),
+      linear-gradient(to right, transparent 58%, black 67%, black 74%, transparent 85%),
+      radial-gradient(circle at 61% 6%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 63% 20%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 57% 38%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 62% 52%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 59% 68%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 61% 84%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 58% 96%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 75% 8%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 77% 24%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 72% 40%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 76% 56%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 5px),
+      radial-gradient(circle at 71% 72%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px),
+      radial-gradient(circle at 75% 88%, rgba(0,0,0,0.45) 0px, rgba(0,0,0,0.45) 2px, black 6px);
+    -webkit-mask-size:100% 200%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    mask-size:100% 200%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+    -webkit-mask-position:0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    mask-position:0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    -webkit-mask-composite:source-in;
+    mask-composite:intersect;
+    opacity:1;
+  }
+  .project.in-view .tire-track-text{
+    animation:treadSwipe 0.48s ease-out forwards;
+    animation-delay:1.8s;
+  }
+  @keyframes treadSwipe{
+    from{
+      -webkit-mask-position:0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+      mask-position:0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+    to{
+      -webkit-mask-position:0% 100%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+      mask-position:0% 100%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+  }
   .project h2{text-align:center;}
-  .project p{text-align:center;}
-  .links{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:14px;
-    margin-bottom:8px;
+  .project p{text-align:center; color:#b7c4ab;}
+  .gradient-line{
+    font-size:23px;
+    text-align:center;
   }
-  .links a{
+  .gradient-line.tone-gold{ color:#e0bd6a; }
+  .gradient-line.tone-green{ color:#7fae6f; }
+  .gradient-line.dev-typed-line{
+    font-family:'Courier New', Courier, monospace;
+    font-size:19px;
+    letter-spacing:normal;
+    opacity:1;
+  }
+  .word-stack{
+    display:inline-block;
     font-family:'EB Garamond', serif;
-    font-size:16px;
-    color:var(--cream);
-    text-decoration:none;
-    border:1px solid rgba(201,162,75,0.4);
-    border-radius:999px;
-    padding:10px 24px;
-    transition:border-color .2s ease, color .2s ease, background .2s ease;
+    font-style:italic;
+    font-weight:600;
+    font-size:32px;
+    letter-spacing:0.03em;
+    white-space:nowrap;
+    margin-top:clamp(16px, 3vw, 28px);
+    margin-bottom:clamp(48px, 7.5vw, 84px);
   }
-  .links a:hover{
-    border-color:var(--gold);
-    color:var(--gold);
-    background:rgba(201,162,75,0.06);
+  .stack-word:nth-child(1){ color:#c9a24b; }
+  .stack-word:nth-child(2){ color:#a4ac5e; }
+  .stack-word:nth-child(3){ color:#7fae6f; }
+  .type-cursor{
+    display:inline-block;
+    position:relative;
+    top:4px;
+    width:2px;
+    height:1em;
+    background:#7fae6f;
+    margin-left:2px;
+    vertical-align:baseline;
+    opacity:0;
+    transition:background-color 3s linear;
+  }
+  .seedling-icon{
+    position:absolute;
+    top:50%;
+    left:0;
+    font-size:1.1em;
+    opacity:0;
+    transform:translateY(-50%) scale(0.6);
+    transform-origin:center;
+  }
+  .type-cursor.blinking{
+    animation:cursorBlink 1.125s step-end infinite;
+  }
+  @keyframes cursorBlink{
+    0%, 49%{ opacity:1; }
+    50%, 100%{ opacity:0; }
+  }
+  .pre-section{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+  }
+  .next-section{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:72px;
+  }
+  .next-section::before{ content:''; flex:2; }
+  .next-section::after{ content:''; flex:1; }
+  .dev-typed{
+    font-family:'Courier New', Courier, monospace;
+    font-size:14px;
+    letter-spacing:normal;
+    text-transform:none;
+    color:#7fae6f;
+    margin:0;
+    text-align:center;
+    opacity:0.9;
+  }
+  .coming-soon{
+    font-size:13px;
+    font-style:italic;
+    color:#5f6f56;
+    letter-spacing:0.03em;
+    margin:10px 0 0;
   }
   footer{
     width:100%;
-    text-align:center;
     padding:28px 24px;
     font-size:13px;
-    color:#6b5f4e;
-    border-top:1px solid rgba(201,162,75,0.12);
+    color:#6b8a63;
+    border-top:1px solid rgba(126,184,108,0.16);
+    background:#1f1911;
   }
-  footer a{color:#8a7654; text-decoration:none;}
+  footer p{ font-size:13px; margin:0; color:#c9a24b; }
+  footer a{color:var(--cream); text-decoration:none;}
+  .footer-grid{
+    max-width:960px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr auto;
+    column-gap:24px;
+    row-gap:10px;
+    align-items:center;
+  }
+  .footer-grid .tagline{ text-align:left; }
+  .icon-row.icon-row-footer{ margin:0; }
 </style>
 </head>
 <body>
+
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <img class="nav-logo" src="assets/sm-logo.jpg" alt="Studio Montague logo">
+      <div class="topnav-right">
+        <div class="nav-links">
+          <a href="#">Blog</a>
+          <a href="#">About</a>
+        </div>
+        <div class="icon-row icon-row-top">
+          <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.indiedb.com/studios/studiomontague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+          <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <div class="wrap">
-    <img class="logo" src="assets/sm-logo.jpg" alt="Studio Montague logo">
-    <h1>Studio Montague</h1>
-    <p class="tagline">Independent Game Development Studio</p>
-    <div class="rule"></div>
-
-    <span class="status">In active pre‑production</span>
-
-    <div class="project">
-      <h2>Seed Runner <span style="color:var(--muted); font-weight:400; font-style:italic; font-size:16px;">(working title)</span></h2>
-      <p>A 3D physics-based survival-adventure for PC — currently in development by a solo, founder-led studio in the United Kingdom, working toward an itch.io prototype and eventual release on Steam.</p>
+    <div class="pre-section">
+      <span class="status" style="margin-bottom:0;">In active pre‑production</span>
     </div>
 
-    <div class="links">
-      <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener">Discord</a>
-      <a href="https://www.indiedb.com/studios/studiomontague" target="_blank" rel="noopener">IndieDB</a>
-      <a href="https://x.com/StudioMontague" target="_blank" rel="noopener">X / Twitter</a>
-      <a href="mailto:hello@studiomontague.dev">Contact</a>
+    <div class="project">
+      <div style="text-align:center; margin-top:0;">
+        <div class="framed-badge">
+          <p class="reveal-text-inv" style="margin:0; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em; animation-delay:0s;">A 3D physics-based survival-adventure</p>
+          <h2 class="title-tracked" style="margin-top:0; margin-bottom:0;"><span class="letter">S</span><span class="letter">e</span><span class="letter">e</span><span class="letter">d</span><span class="letter">.</span><span class="letter">R</span><span class="letter">u</span><span class="letter">n</span><span class="letter">n</span><span class="letter">e</span><span class="letter">r</span><span class="tire-track-text" aria-hidden="true">Seed.Runner</span></h2>
+          <p class="letter-effect" style="margin:-14px 0 0; font-style:italic; font-size:14px; color:#8a9c7f; animation-delay:0.1s;">(working title)</p>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:22px;">
+        <p class="gradient-line tone-gold dev-typed-line" style="margin:0;"><span id="haul-text"></span><span class="type-cursor" id="haul-cursor" style="background:#e0bd6a;"></span></p>
+      </div>
+      <div style="text-align:center; font-family:'EB Garamond', serif; font-size:32px; line-height:1; min-height:1em; margin:8px 0;">
+        <span class="type-cursor" id="blank-cursor" style="background:#e0bd6a;"></span>
+      </div>
+      <div style="text-align:center; font-family:'EB Garamond', serif; font-size:32px; line-height:1; min-height:1em; margin:8px 0;">
+        <span class="type-cursor" id="blank-cursor-2" style="background:#e0bd6a;"></span>
+      </div>
+      <div style="text-align:center; position:relative;">
+        <div class="word-stack">
+          <span class="stack-word" id="ws-word-1"></span> <span class="stack-word" id="ws-word-2"></span> <span class="stack-word" id="ws-word-3"></span><span class="type-cursor" id="ws-cursor" style="background:#e0bd6a;"></span>
+        </div>
+        <span class="seedling-icon" id="seedling-icon">🌱</span>
+      </div>
+      <p style="margin-top:clamp(47px, 7.5vw, 71px); margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="#" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px;">Read More</a></p>
+      <p class="coming-soon">Devlogs and updates — coming soon</p>
+    </div>
+
+    <div class="next-section">
+      <p class="dev-typed"><span id="world-text"></span><span class="type-cursor" id="world-cursor" style="background:#7fae6f;"></span></p>
     </div>
   </div>
 
   <footer>
-    &copy; 2026 Studio Montague. All rights reserved. &nbsp;·&nbsp; <a href="mailto:hello@studiomontague.dev">hello@studiomontague.dev</a>
+    <div class="footer-grid">
+      <p class="tagline" style="grid-column:1; grid-row:1; margin:0;">Studio Montague is an independent and solo game development studio from Brighton in the UK.</p>
+      <div class="icon-row icon-row-footer" style="grid-column:2; grid-row:1; justify-self:end;">
+        <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.indiedb.com/studios/studiomontague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+        <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <p style="grid-column:1; grid-row:2; margin:0; font-size:13px;">&copy; 2026 Studio Montague. All rights reserved.</p>
+      <div class="footer-links" style="grid-column:2; grid-row:2; justify-self:end; margin:0;">
+        <a href="#">FAQ</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    (function(){
+      function typeWords(words, dropDelay, blankBlinkMs1, blankBlinkMs2, handoffMs){
+        var els = [document.getElementById('ws-word-1'), document.getElementById('ws-word-2'), document.getElementById('ws-word-3')];
+        var wsCursor = document.getElementById('ws-cursor');
+        var blankCursor = document.getElementById('blank-cursor');
+        var blankCursor2 = document.getElementById('blank-cursor-2');
+        var seedling = document.getElementById('seedling-icon');
+        var seedlingAnchor = seedling ? seedling.parentElement : null;
+        if(!els[0] || !wsCursor || !blankCursor || !blankCursor2) return;
+        // Measure where the text will end once fully typed, so the seedling can be
+        // positioned there in advance and stay put — it never shifts as the words type in.
+        // Anchored to the outer wrapper (full-width, stable) rather than .word-stack itself,
+        // since .word-stack is a centered inline-block that grows from the middle outward as
+        // it types — anchoring to it would drag the seedling along for the ride.
+        if(seedling && seedlingAnchor){
+          els[0].textContent = words[0];
+          els[1].textContent = words[1];
+          els[2].textContent = words[2];
+          var anchorRect = seedlingAnchor.getBoundingClientRect();
+          var lastRect = els[2].getBoundingClientRect();
+          seedling.style.left = ((lastRect.right - anchorRect.left) + 10) + 'px';
+          els[0].textContent = '';
+          els[1].textContent = '';
+          els[2].textContent = '';
+        }
+        var totalChars = words.join('').length;
+        var typedChars = 0;
+        // Stage 1: after 'will', drop one line to the first blank line — cursor sits there blinking, typing nothing.
+        setTimeout(function(){
+          blankCursor.classList.add('blinking');
+          // Stage 2: drop a second line, to the second blank line — blinks there too.
+          setTimeout(function(){
+            blankCursor.classList.remove('blinking');
+            blankCursor.style.opacity = 0;
+            blankCursor2.classList.add('blinking');
+            // Stage 3: drop a third line, down to the word-stack row, and start typing there.
+            setTimeout(function(){
+              blankCursor2.classList.remove('blinking');
+              blankCursor2.style.opacity = 0;
+              wsCursor.classList.add('blinking');
+              setTimeout(function(){
+                var typingStart = Date.now();
+                wsCursor.style.background = '#7fae6f';
+                var wordIndex = 0, charIndex = 0;
+                function typeChar(){
+                  if(wordIndex >= words.length){
+                    if(seedling){
+                      seedling.style.opacity = 1;
+                      seedling.style.transform = 'translateY(-50%) scale(1)';
+                    }
+                    var elapsed = Date.now() - typingStart;
+                    var remaining = Math.max(0, 10730 - elapsed);
+                    setTimeout(function(){
+                      wsCursor.classList.remove('blinking');
+                      wsCursor.style.opacity = 0;
+                    }, remaining);
+                    return;
+                  }
+                  var word = words[wordIndex];
+                  if(charIndex < word.length){
+                    els[wordIndex].textContent += word.charAt(charIndex);
+                    charIndex++;
+                    typedChars++;
+                    if(seedling){
+                      var frac = typedChars / totalChars;
+                      seedling.style.opacity = frac;
+                      seedling.style.transform = 'translateY(-50%) scale(' + (0.6 + 0.4 * frac) + ')';
+                    }
+                    setTimeout(typeChar, 100 + Math.random() * 160);
+                  } else {
+                    wordIndex++;
+                    charIndex = 0;
+                    setTimeout(typeChar, 100 + Math.random() * 160);
+                  }
+                }
+                typeChar();
+              }, handoffMs);
+            }, blankBlinkMs2);
+          }, blankBlinkMs1);
+        }, dropDelay);
+      }
+      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId){
+        var span = document.getElementById(textId);
+        var cursor = document.getElementById(cursorId);
+        if(!span || !cursor) return;
+        setTimeout(function(){
+          cursor.classList.add('blinking');
+          var i = 0;
+          function step(){
+            if(i < text.length){
+              span.textContent += text.charAt(i);
+              i++;
+              setTimeout(step, charDelay);
+            } else if(holdAfterMs !== null){
+              setTimeout(function(){
+                cursor.classList.remove('blinking');
+                cursor.style.opacity = 0;
+              }, holdAfterMs);
+            }
+          }
+          step();
+        }, startDelay);
+      }
+      var project = document.querySelector('.project');
+      if(!project) return;
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            project.classList.add('in-view');
+            typeLine('Haul precious cargo across a barren world. Every measured mile', 3900, 73, 2020, 'haul-text', 'haul-cursor');
+            typeWords(['leaves', 'life', 'behind.'], 11320, 1125, 1125, 340);
+            typeLine('// the world we build', 22400, 152, null, 'world-text', 'world-cursor');
+            obs.unobserve(project);
+          }
+        });
+      }, { threshold: 0.35 });
+      obs.observe(project);
+    })();
+  </script>
 </body>
 </html>
