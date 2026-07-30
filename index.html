@@ -37,21 +37,17 @@
 
   /* top nav */
   .topnav{
-    position:relative;
     width:100%;
-    min-height:230px;
     background-color:#1f1911;
-    overflow:hidden;
     box-sizing:border-box;
+    padding:clamp(16px, 3vw, 28px) 24px;
   }
   .topnav-img{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:left top;
     display:block;
+    width:100%;
+    max-width:960px;
+    height:auto;
+    margin:0 auto;
   }
   .topnav-links-bar{
     width:100%;
@@ -120,6 +116,48 @@
     opacity:1;
     color:var(--cream);
   }
+  .mobile-menu-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    width:34px;
+    height:34px;
+    padding:0;
+    background:none;
+    border:none;
+    cursor:pointer;
+  }
+  .mobile-menu-toggle span{
+    display:block;
+    width:100%;
+    height:2px;
+    background:#d0b07f;
+    border-radius:1px;
+    transition:background .2s ease;
+  }
+  .mobile-menu-toggle:hover span{ background:var(--cream); }
+  .mobile-menu{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding-top:14px;
+    margin-top:2px;
+    border-top:1px solid rgba(201,162,75,0.14);
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{
+    color:#d0b07f;
+    font-family:'Limelight', serif;
+    font-size:16px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-decoration:none;
+    opacity:0.85;
+  }
+  .mobile-menu a:hover, .mobile-menu a.active{ opacity:1; color:var(--cream); }
   .footer-links{
     display:flex;
     justify-content:flex-end;
@@ -461,17 +499,18 @@
 
   /* mobile */
   @media (max-width:640px){
-    .topnav{ min-height:150px; }
+    .topnav{ padding:20px 16px; background-color:#000; }
+    .topnav-img{ width:auto; height:min(58vh, 460px); max-width:82%; object-fit:contain; margin:0 auto; }
     .topnav-links-inner{ justify-content:center; padding:12px 16px; gap:10px 18px; }
     .icon-row.icon-row-top{ gap:16px; }
     .icon-row.icon-row-top a{ font-size:22px; }
-    .nav-links{ gap:14px; }
-    .nav-links a{ font-size:15px; }
-    .nav-links a .drop-cap{ width:1.35em; height:1.35em; }
+    .nav-links{ display:none; }
+    .mobile-menu-toggle{ display:flex; }
     .wrap{ padding-left:16px; padding-right:16px; }
     .project{ padding-left:22px; padding-right:22px; }
-    .framed-badge{ padding:14px 14px 6px; }
-    h2{ font-size:clamp(28px, 11.5vw, 70px); letter-spacing:0.02em; }
+    .framed-badge{ padding:12px 12px 6px; max-width:100%; box-sizing:border-box; }
+    .title-tracked{ max-width:100%; }
+    h2{ font-size:clamp(22px, calc(14vw - 15px), 70px); letter-spacing:0.015em; }
     .word-stack{ font-size:clamp(20px, 7vw, 32px); }
     .gradient-line.dev-typed-line{ font-size:15px; }
     .dev-typed{ font-size:12px; }
@@ -480,12 +519,18 @@
     .footer-col-left{ text-align:center; }
     .footer-col-left .tagline{ text-align:center; }
     .footer-col-right{ align-items:center; }
+    .footer-br{ display:none; }
   }
 </style>
 </head>
 <body>
 
-  <nav class="topnav"><img src="assets/sm-banner.jpg" alt="Studio Montague" class="topnav-img"></nav>
+  <nav class="topnav">
+    <picture>
+      <source media="(max-width:640px)" srcset="assets/sm-logo-mobile.jpg">
+      <img src="assets/sm-banner.jpg" alt="Studio Montague" class="topnav-img">
+    </picture>
+  </nav>
 
   <div class="topnav-links-bar">
     <div class="topnav-links-inner">
@@ -494,13 +539,29 @@
         <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
         <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
         <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <button type="button" class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
       </div>
       <div class="nav-links">
         <a href="https://x.com/StudioMontague" target="_blank" rel="noopener"><span class="drop-cap">B</span>log</a>
         <a href="about.html"><span class="drop-cap">A</span>bout</a>
       </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener"><span class="drop-cap">B</span>log</a>
+        <a href="about.html"><span class="drop-cap">A</span>bout</a>
+      </div>
     </div>
   </div>
+
+  <script>
+    document.querySelectorAll('.mobile-menu-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var menu = document.getElementById(btn.getAttribute('aria-controls'));
+        if(!menu) return;
+        var isOpen = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  </script>
 
   <div class="wrap">
     <div class="pre-section">
@@ -545,7 +606,7 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-col-left">
-        <p class="tagline">Studio Montague is an independent, solo game development studio<br>based in Brighton, UK.</p>
+        <p class="tagline">Studio Montague is an independent, solo game development studio<br class="footer-br">based in Brighton, UK.</p>
         <p class="footer-copyright">&copy; 2026 Studio Montague. All rights reserved.</p>
       </div>
       <div class="footer-col-right">
