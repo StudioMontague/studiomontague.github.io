@@ -110,6 +110,7 @@
     border-radius:999px;
     padding:7px 18px;
     text-decoration:none;
+    white-space:nowrap;
     transition:border-color .2s ease, color .2s ease, background .2s ease;
   }
   .read-more:hover{
@@ -179,6 +180,13 @@
         var isOpen = menu.classList.toggle('open');
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
+    });
+    // release the nav entrance animation once it finishes, so the animation-origin
+    // opacity it pins doesn't outrank the normal hover-dim/brighten rules forever
+    document.querySelectorAll('.icon-row-top > a, .icon-row-top > .mobile-menu-toggle, .nav-links > a').forEach(function(el){
+      el.addEventListener('animationend', function(){
+        el.style.animation = 'none';
+      }, { once:true });
     });
   </script>
 

@@ -44,6 +44,11 @@ body{
   height:clamp(160px, 20vw, 320px);
   object-fit:cover;
   object-position:center center;
+  animation:topnavFadeIn 2.8s ease both;
+}
+@keyframes topnavFadeIn{
+  from{ opacity:0; }
+  to{ opacity:1; }
 }
 .topnav-links-bar{
   width:100%;
@@ -51,6 +56,20 @@ body{
   border-top:1px solid rgba(201,162,75,0.14);
   border-bottom:1px solid rgba(201,162,75,0.14);
   box-sizing:border-box;
+  animation:navFadeDown 0.6s cubic-bezier(.16,.84,.44,1) both;
+}
+@keyframes navFadeDown{
+  from{ opacity:0; transform:translateY(-12px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .topnav-links-bar,
+  .topnav-img,
+  .icon-row.icon-row-top > a,
+  .icon-row.icon-row-top > .mobile-menu-toggle,
+  .nav-links > a{
+    animation:none !important; opacity:1 !important; transform:none !important;
+  }
 }
 .topnav-links-inner{
   width:100%;
@@ -70,6 +89,16 @@ body{
   justify-content:flex-end;
   align-items:center;
   gap:26px;
+}
+.nav-links > a{
+  animation:navLinksSlideInRight 0.65s cubic-bezier(.16,.84,.44,1) both;
+}
+.nav-links > a:nth-child(1){ animation-delay:0.42s; }
+.nav-links > a:nth-child(2){ animation-delay:0.18s; }
+@keyframes navLinksSlideInRight{
+  0%{ opacity:0; transform:translateX(160px); }
+  55%{ opacity:1; }
+  100%{ opacity:1; transform:translateX(0); }
 }
 .nav-links a{
   display:inline-flex;
@@ -238,6 +267,22 @@ body{
   background:rgba(201,162,75,0.08);
 }
 .icon-row.icon-row-top{ gap:24px; }
+.icon-row.icon-row-top > a{
+  animation:iconsSlideInLeft 0.65s cubic-bezier(.16,.84,.44,1) both;
+}
+.icon-row.icon-row-top > a:nth-child(1){ animation-delay:0.18s; }
+.icon-row.icon-row-top > a:nth-child(2){ animation-delay:0.3s; }
+.icon-row.icon-row-top > a:nth-child(3){ animation-delay:0.42s; }
+.icon-row.icon-row-top > a:nth-child(4){ animation-delay:0.54s; }
+/* .mobile-menu-toggle is intentionally excluded — it's display:none until the mobile
+   breakpoint, and a CSS animation replays from scratch the moment a display:none
+   element becomes visible, which caused it to visibly "stick" off-screen while the
+   window was being narrowed past 640px and only resolve once resizing stopped. */
+@keyframes iconsSlideInLeft{
+  0%{ opacity:0; transform:translateX(-160px); }
+  55%{ opacity:1; }
+  100%{ opacity:1; transform:translateX(0); }
+}
 .icon-row.icon-row-top a{
   width:auto;
   height:auto;

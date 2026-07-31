@@ -149,6 +149,13 @@
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
     });
+    // release the nav entrance animation once it finishes, so the animation-origin
+    // opacity it pins doesn't outrank the normal hover-dim/brighten rules forever
+    document.querySelectorAll('.icon-row-top > a, .icon-row-top > .mobile-menu-toggle, .nav-links > a').forEach(function(el){
+      el.addEventListener('animationend', function(){
+        el.style.animation = 'none';
+      }, { once:true });
+    });
   </script>
 
   <div class="wrap">

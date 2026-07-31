@@ -125,6 +125,12 @@
     box-shadow:0 16px 34px rgba(0,0,0,0.32);
     border-color:rgba(139,178,110,0.4);
   }
+  /* wrapper carries the scroll parallax offset, kept separate from .team-card
+     itself so it never competes with that element's own entrance/hover transforms */
+  .team-card-parallax{
+    transform:translateY(var(--parallax-y, 0px));
+    transition:transform .1s linear;
+  }
   @media (prefers-reduced-motion: reduce){
     .about-intro p,
     .rule,
@@ -136,9 +142,11 @@
       transform:none !important;
     }
     .team-card,
-    .avatar-circle{
+    .avatar-circle,
+    .team-card-parallax{
       transition:none !important;
     }
+    .team-card-parallax{ transform:none !important; }
   }
 
   /* mobile */
@@ -147,6 +155,7 @@
     .section-label{ font-size:15px; letter-spacing:0.18em; }
     .team-card{ padding:28px 20px; }
     .avatar-circle{ width:110px; height:110px; }
+    .team-card-parallax{ transform:none !important; transition:none !important; }
   }
 </style>
 </head>
@@ -187,6 +196,48 @@
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
     });
+    // release the nav entrance animation once it finishes, so the animation-origin
+    // opacity it pins doesn't outrank the normal hover-dim/brighten rules forever
+    document.querySelectorAll('.icon-row-top > a, .icon-row-top > .mobile-menu-toggle, .nav-links > a').forEach(function(el){
+      el.addEventListener('animationend', function(){
+        el.style.animation = 'none';
+      }, { once:true });
+    });
+  </script>
+
+  <script>
+    // subtle scroll parallax on the team card — desktop only, respects reduced-motion
+    (function(){
+      var el = document.querySelector('.team-card-parallax');
+      if(!el) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduceMotion) return;
+      var ticking = false;
+      function update(){
+        ticking = false;
+        if(window.innerWidth <= 640){
+          el.style.setProperty('--parallax-y', '0px');
+          return;
+        }
+        var rect = el.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var elCenter = rect.top + rect.height / 2;
+        var offset = (vh / 2 - elCenter) * 0.04;
+        var max = 16;
+        if(offset > max) offset = max;
+        if(offset < -max) offset = -max;
+        el.style.setProperty('--parallax-y', offset.toFixed(2) + 'px');
+      }
+      function onScroll(){
+        if(!ticking){
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+      update();
+      window.addEventListener('scroll', onScroll, { passive:true });
+      window.addEventListener('resize', onScroll);
+    })();
   </script>
 
   <div class="wrap">
@@ -199,14 +250,16 @@
 
     <p class="section-label">The Solodev</p>
 
-    <div class="team-card">
-      <div class="avatar-circle"><img src="assets/graham-avatar.jpg" alt="Graham Ainge"></div>
-      <p class="team-name" style="text-align:center;">Graham Ainge</p>
-      <p class="team-role" style="text-align:center;">Founder &amp; Lead Developer</p>
-      <p>Graham is the founder — and, for now, the only member — of Studio Montague. Before games, he spent over a decade teaching science, and before that he toured as a keyboardist and vocalist in a rock band, signed to Island Records.</p>
-      <p>Playing narrative-driven games with three older siblings since the Amiga 500 era, titles like <em>Monkey Island</em> (aged 7), <em>Ocarina of Time</em> (aged 14), and <em>Skyrim</em> (too old), shaped how he thinks about worlds and stories. The gameplay of other titles, such as <em>Turrican</em>, <em>Goldeneye</em> and <em>Halo</em> were equally capturing for their competitive edge and precision.</p>
-      <p>Seed.Runner draws on all three chapters — the discipline of teaching, the collaboration of a band, and a lifelong love of games built to be explored.</p>
-      <p>He works out of a home studio in Brighton in the UK, with two whippets asleep in the corner.</p>
+    <div class="team-card-parallax">
+      <div class="team-card">
+        <div class="avatar-circle"><img src="assets/graham-avatar.jpg" alt="Graham Ainge"></div>
+        <p class="team-name" style="text-align:center;">Graham Ainge</p>
+        <p class="team-role" style="text-align:center;">Founder &amp; Lead Developer</p>
+        <p>Graham is the founder — and, for now, the only member — of Studio Montague. Before games, he spent over a decade teaching science, and before that he toured as a keyboardist and vocalist in a rock band, signed to Island Records.</p>
+        <p>Playing narrative-driven games with three older siblings since the Amiga 500 era, titles like <em>Monkey Island</em> (aged 7), <em>Ocarina of Time</em> (aged 14), and <em>Skyrim</em> (too old), shaped how he thinks about worlds and stories. The gameplay of other titles, such as <em>Turrican</em>, <em>Goldeneye</em> and <em>Halo</em> were equally capturing for their competitive edge and precision.</p>
+        <p>Seed.Runner draws on all three chapters — the discipline of teaching, the collaboration of a band, and a lifelong love of games built to be explored.</p>
+        <p>He works out of a home studio in Brighton in the UK, with two whippets asleep in the corner.</p>
+      </div>
     </div>
   </div>
 

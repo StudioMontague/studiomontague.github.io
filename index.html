@@ -44,6 +44,12 @@
     border-radius:999px;
     padding:6px 18px;
     margin-bottom:36px;
+    opacity:0;
+    animation:statusFadeIn 1.2s cubic-bezier(.16,.84,.44,1) 0.35s both;
+  }
+  @keyframes statusFadeIn{
+    from{ opacity:0; transform:translateY(-6px) scale(0.94); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
   }
   p{
     font-size:19px;
@@ -59,8 +65,11 @@
     padding:clamp(54px, 9vw, 84px) clamp(24px, 5vw, 44px) 21px;
     margin:clamp(56px, 10vw, 96px) 0 clamp(24px, 5vw, 40px);
     text-align:left;
+    transform:translateY(var(--parallax-y, 0px));
+    transition:transform .1s linear;
   }
   .framed-badge{
+    position:relative;
     display:inline-block;
     padding:0;
     overflow:hidden;
@@ -68,6 +77,8 @@
     border-radius:10px;
     background:rgba(0,0,0,0.14);
     box-shadow:0 4px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+    margin-top:41px;
+    margin-bottom:35px;
   }
   .game-logo{
     display:block;
@@ -76,6 +87,20 @@
     margin:0 auto;
     border-radius:9px;
   }
+  .working-title-overlay{
+    position:absolute;
+    left:50%;
+    top:77%;
+    transform:translate(-50%, -50%);
+    font-style:italic;
+    font-size:clamp(11px, 2.4vw, 15px);
+    letter-spacing:0.04em;
+    color:#8a9c7f;
+    text-shadow:0 1px 4px rgba(0,0,0,0.85);
+    white-space:nowrap;
+    pointer-events:none;
+  }
+  .working-title-overlay p{ margin:0; }
   .reveal-text{
     opacity:0;
     transform:translateY(10px);
@@ -113,11 +138,10 @@
   }
   .word-stack{
     display:inline-block;
-    font-family:'EB Garamond', serif;
-    font-style:italic;
+    font-family:'Orbitron', sans-serif;
     font-weight:600;
-    font-size:32px;
-    letter-spacing:0.03em;
+    font-size:29px;
+    letter-spacing:0.04em;
     white-space:nowrap;
     margin-top:clamp(16px, 3vw, 28px);
     margin-bottom:clamp(48px, 7.5vw, 84px);
@@ -183,11 +207,20 @@
     margin:10px 0 0;
   }
 
+  @media (prefers-reduced-motion: reduce){
+    .status, .project{
+      animation:none !important;
+      transition:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+  }
+
   /* mobile */
   @media (max-width:640px){
-    .project{ padding-left:22px; padding-right:22px; }
+    .project{ padding-left:22px; padding-right:22px; transform:none !important; transition:none !important; }
     .framed-badge{ padding:0; max-width:100%; box-sizing:border-box; }
-    .word-stack{ font-size:clamp(20px, 7vw, 32px); }
+    .word-stack{ font-size:clamp(18px, 6.5vw, 29px); }
     .gradient-line.dev-typed-line{ font-size:15px; }
     .dev-typed{ font-size:12px; }
     .status{ font-size:11px; padding:5px 14px; }
@@ -229,6 +262,13 @@
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
     });
+    // release the nav entrance animation once it finishes, so the animation-origin
+    // opacity it pins doesn't outrank the normal hover-dim/brighten rules forever
+    document.querySelectorAll('.icon-row-top > a, .icon-row-top > .mobile-menu-toggle, .nav-links > a').forEach(function(el){
+      el.addEventListener('animationend', function(){
+        el.style.animation = 'none';
+      }, { once:true });
+    });
   </script>
 
   <div class="wrap">
@@ -238,11 +278,13 @@
 
     <div class="project">
       <div style="text-align:center; margin-top:0;">
-        <p class="reveal-text-inv" style="margin:0 0 16px; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em; animation-delay:0s;">A 3D physics-based survival-adventure</p>
+        <p style="margin:0 0 16px; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em;"><span id="intro-text"></span><span class="type-cursor" id="intro-cursor" style="background:#b7c4ab;"></span></p>
         <div class="framed-badge">
           <img src="assets/seedrunner-logo.jpg" alt="Seed.Runner" class="game-logo reveal-text" style="animation-delay:0.15s;">
+          <div class="working-title-overlay">
+            <p class="reveal-text" style="animation-delay:0.3s;">(working title)</p>
+          </div>
         </div>
-        <p class="reveal-text" style="margin:16px 0 0; font-style:italic; font-size:14px; color:#8a9c7f; animation-delay:0.3s;">(working title)</p>
       </div>
       <div style="text-align:center; margin-top:22px;">
         <p class="gradient-line tone-gold dev-typed-line" style="margin:0;"><span id="haul-text"></span><span class="type-cursor" id="haul-cursor" style="background:#e0bd6a;"></span></p>
@@ -262,7 +304,7 @@
         </div>
         <span class="seedling-icon" id="seedling-icon">🌱</span>
       </div>
-      <p style="margin-top:clamp(47px, 7.5vw, 71px); margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px;">Read More</a></p>
+      <p style="margin-top:clamp(47px, 7.5vw, 71px); margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
       <p class="coming-soon">Devlogs and updates — coming soon</p>
     </div>
 
@@ -294,7 +336,7 @@
 
   <script>
     (function(){
-      function typeWords(words, dropDelay, blankBlinkMs1, blankBlinkMs2, handoffMs){
+      function typeWords(words, dropDelay, blankBlinkMs1, blankBlinkMs2, handoffMs, onComplete){
         var els = [document.getElementById('ws-word-1'), document.getElementById('ws-word-2'), document.getElementById('ws-word-3')];
         var wsCursor = document.getElementById('ws-cursor');
         var blankCursor = document.getElementById('blank-cursor');
@@ -371,6 +413,7 @@
                     setTimeout(function(){
                       wsCursor.classList.remove('blinking');
                       wsCursor.style.opacity = 0;
+                      if(onComplete){ onComplete(); }
                     }, remaining);
                     return;
                   }
@@ -430,17 +473,55 @@
             project.classList.add('in-view');
             // Haul line, then drop a line and type "Every measured mile...", each with its own
             // end-of-line cursor pause, before handing off to the blank-line drop + leaves reveal.
-            typeLine('Haul precious cargo across a barren world.', 3900, 73, 1100, 'haul-text', 'haul-cursor', function(){
-              typeLine('Where every measured mile...', 300, 73, 1100, 'mile-text', 'mile-cursor', function(){
-                typeWords(['leaves', 'life', 'behind.'], 0, 1125, 1125, 340);
+            typeLine('A 3D physics-based survival-adventure', 500, 73, 1100, 'intro-text', 'intro-cursor', function(){
+              typeLine('Haul precious cargo across a barren world.', 300, 73, 1100, 'haul-text', 'haul-cursor', function(){
+                typeLine('Where every measured mile...', 300, 73, 1100, 'mile-text', 'mile-cursor', function(){
+                  typeWords(['leaves', 'life', 'behind.'], 0, 1125, 1125, 340, function(){
+                    typeLine('// the world we build', 300, 152, null, 'world-text', 'world-cursor');
+                  });
+                });
               });
             });
-            typeLine('// the world we build', 22400, 152, null, 'world-text', 'world-cursor');
             obs.unobserve(project);
           }
         });
       }, { threshold: 0.35 });
       obs.observe(project);
+    })();
+  </script>
+
+  <script>
+    // subtle scroll parallax on the project card — desktop only, respects reduced-motion
+    (function(){
+      var el = document.querySelector('.project');
+      if(!el) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduceMotion) return;
+      var ticking = false;
+      function update(){
+        ticking = false;
+        if(window.innerWidth <= 640){
+          el.style.setProperty('--parallax-y', '0px');
+          return;
+        }
+        var rect = el.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var elCenter = rect.top + rect.height / 2;
+        var offset = (vh / 2 - elCenter) * 0.04;
+        var max = 16;
+        if(offset > max) offset = max;
+        if(offset < -max) offset = -max;
+        el.style.setProperty('--parallax-y', offset.toFixed(2) + 'px');
+      }
+      function onScroll(){
+        if(!ticking){
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+      update();
+      window.addEventListener('scroll', onScroll, { passive:true });
+      window.addEventListener('resize', onScroll);
     })();
   </script>
 </body>
