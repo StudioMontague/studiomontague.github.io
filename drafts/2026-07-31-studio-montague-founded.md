@@ -12,15 +12,15 @@
 
 Today, Studio Montague officially begins.
 
-I'm Graham Ainge — founder, and for now the only member, of a new independent game studio based in Brighton, UK. After a decade teaching science and a run touring as a keyboardist and vocalist in a band signed to Island Records, I'm starting again from the beginning: alone, at a desk, building a game.
+I'm Graham Ainge — founder, and for now the only member, of a new independent game studio based in Brighton, UK. After a decade teaching science and a run touring as a keyboardist and vocalist in a band signed to Island Records, I'm starting a new chapter: alone, at a desk, building a game.
 
 That game is **Seed.Runner** (working title) — a 3D physics-based survival-adventure. Haul precious cargo across a barren world, where every measured mile leaves something behind. It's early. Right now it's pre-production: prototypes, systems, and a lot of paper. But it's real, and it's happening.
 
-Studio Montague isn't a big studio, and it isn't trying to be one yet. It's one person, a home studio, and two whippets asleep in the corner — one of whom you'll recognise, cast in bronze, on the coin above. That coin is the first thing I've had made for the studio, and it felt right to mark day one with it.
+Studio Montague isn't a big studio, and it isn't trying to be one. It's one person, a home studio, and two whippets asleep in the corner — one of whom you'll recognise, cast in bronze on the coin above, to commemorate the minting of the Studio.
 
 Over the coming months I'll be sharing progress here, on Discord, and on IndieDB — prototypes, dead ends, decisions, and eventually a vertical slice. If you want to follow along from the start, this is the start.
 
-More soon, including a proper look at Seed.Runner itself.
+More soon, including a proper look at the Seed.Runner concept itself.
 
 — Graham
 Founder & Lead Developer, Studio Montague
