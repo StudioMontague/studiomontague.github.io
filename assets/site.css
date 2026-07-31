@@ -208,8 +208,8 @@ body{
 }
 .footer-links a:hover .drop-cap{
   color:#f5ecd8;
-  border-color:#f5ecd8;
-  background:rgba(201,162,75,0.1);
+  border-color:rgba(201,162,75,0.45);
+  background:rgba(0,0,0,0.2);
 }
 .footer-links a.active{
   text-decoration:underline;
