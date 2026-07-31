@@ -102,6 +102,7 @@ body{
   font-weight:700;
   font-size:34px;
   line-height:1;
+  text-decoration:none;
   vertical-align:middle;
   transition:border-color .2s ease, color .2s ease, background .2s ease;
 }
@@ -117,6 +118,7 @@ body{
 .nav-links a:hover{
   opacity:1;
   color:var(--cream);
+  text-decoration:underline;
 }
 .mobile-menu-toggle{
   display:none;
@@ -159,7 +161,7 @@ body{
   text-decoration:none;
   opacity:0.85;
 }
-.mobile-menu a:hover, .mobile-menu a.active{ opacity:1; color:var(--cream); }
+.mobile-menu a:hover, .mobile-menu a.active{ opacity:1; color:var(--cream); text-decoration:underline; }
 .footer-links{
   display:flex;
   justify-content:flex-end;
@@ -195,10 +197,15 @@ body{
   font-weight:700;
   font-size:18px;
   line-height:1;
+  text-decoration:none;
   vertical-align:middle;
   transition:border-color .2s ease, color .2s ease, background .2s ease;
 }
-.footer-links a:hover{ opacity:1; }
+.footer-links a:hover{
+  opacity:1;
+  color:#f5ecd8;
+  text-decoration:underline;
+}
 .footer-links a:hover .drop-cap{
   color:#f5ecd8;
   border-color:#f5ecd8;
