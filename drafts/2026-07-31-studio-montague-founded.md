@@ -45,13 +45,13 @@ Thanks for being here for day one. More soon.
 
 ## X / Twitter
 
+**Character count: 278 / 280 (final)**
+
 Today, Studio Montague begins.
 
-I'm Graham — solo founder, Brighton UK. Building Seed.Runner: a 3D physics-based survival-adventure about hauling precious cargo across a barren world.
+I'm Graham, solo founder in Brighton UK building Seed.Runner, a 3D physics-based survival-adventure about hauling precious cargo across a barren world.
 
-One person. One home studio. Two whippets. Coin minted for day one.
-
-More soon.
+1 person. 1 home studio. 2 whippets. Coin minted to mark #Day1. More soon. #indiedev #gamedev
 
 ---
 
