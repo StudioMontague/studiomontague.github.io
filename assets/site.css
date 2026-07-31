@@ -95,7 +95,8 @@ body{
   height:22px;
   margin-right:0.03em;
   border:1px solid rgba(201,162,75,0.45);
-  border-radius:3px;
+  border-bottom:none;
+  border-radius:3px 3px 0 0;
   background:rgba(0,0,0,0.2);
   color:#d0b07f;
   font-family:'Cinzel', serif;
@@ -190,7 +191,8 @@ body{
   height:14px;
   margin-right:0.03em;
   border:1px solid rgba(201,162,75,0.45);
-  border-radius:3px;
+  border-bottom:none;
+  border-radius:3px 3px 0 0;
   background:rgba(0,0,0,0.2);
   color:#d0b07f;
   font-family:'Cinzel', serif;
@@ -203,11 +205,11 @@ body{
 }
 .footer-links a:hover{
   opacity:1;
-  color:#f5ecd8;
+  color:#e0bd6a;
   text-decoration:underline;
 }
 .footer-links a:hover .drop-cap{
-  color:#f5ecd8;
+  color:#e0bd6a;
   border-color:rgba(201,162,75,0.45);
   background:rgba(0,0,0,0.2);
 }
