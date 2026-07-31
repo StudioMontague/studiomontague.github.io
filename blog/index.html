@@ -17,13 +17,6 @@
     max-width:640px;
     margin:0 auto;
   }
-  .blog-intro h1{
-    font-weight:600;
-    font-size:clamp(30px, 5vw, 40px);
-    letter-spacing:0.05em;
-    color:var(--cream);
-    margin:0 0 18px;
-  }
   .blog-intro p{
     font-size:18px;
     color:#c9a24b;
@@ -126,7 +119,7 @@
   }
 
   /* minimal entrance animation (fadeUp keyframe lives in site.css) */
-  .blog-intro h1, .blog-intro p, .post-card{
+  .blog-intro p, .post-card{
     animation:fadeUp 0.7s cubic-bezier(.16,.84,.44,1) both;
   }
   .blog-intro p{ animation-delay:0.12s; }
@@ -136,7 +129,7 @@
   .post-card:nth-of-type(4){ animation-delay:0.54s; }
   .post-card:nth-of-type(5){ animation-delay:0.64s; }
   @media (prefers-reduced-motion: reduce){
-    .blog-intro h1, .blog-intro p, .post-card{
+    .blog-intro p, .post-card{
       animation:none !important;
       opacity:1 !important;
       transform:none !important;
@@ -191,7 +184,6 @@
 
   <div class="wrap">
     <div class="blog-intro">
-      <h1>Blog</h1>
       <p>Progress on the studio and on Seed.Runner, as it happens.</p>
     </div>
 
@@ -213,7 +205,7 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-col-left">
-        <p class="tagline">Studio Montague is an independent, solo game development studio<br class="footer-br">based in Brighton, UK.</p>
+        <p class="tagline">Studio Montague is an independent, solo game development studio <br class="footer-br">based in Brighton in the UK.</p>
         <p class="footer-copyright">&copy; 2026 Studio Montague. All rights reserved.</p>
       </div>
       <div class="footer-col-right">

@@ -12,7 +12,7 @@
 
 Today, Studio Montague officially begins.
 
-I'm Graham Ainge — founder, and for now the only member, of a new independent game studio based in Brighton, UK. After a decade teaching science and a run touring as a keyboardist and vocalist in a band signed to Island Records, I'm starting a new chapter: alone, at a desk, building a game.
+I'm Graham Ainge — founder, and for now the only member, of a new independent game studio based in Brighton in the UK. After a decade teaching science and a run touring as a keyboardist and vocalist in a band signed to Island Records, I'm starting a new chapter: alone, at a desk, building a game.
 
 That game is **Seed.Runner** (working title) — a 3D physics-based survival-adventure. Haul precious cargo across a barren world, where every measured mile leaves something behind. It's early. Right now it's pre-production: prototypes, systems, and a lot of paper. But it's real, and it's happening.
 
@@ -31,7 +31,7 @@ Founder & Lead Developer, Studio Montague
 
 **Studio Montague begins today.**
 
-Hey — I'm Graham, founder (and so far, only member) of Studio Montague, an independent studio based in Brighton, UK. This server is where I'll be sharing progress on the studio's first game as it happens: prototypes, decisions, dead ends, and eventually a vertical slice.
+Hey — I'm Graham, founder (and so far, only member) of Studio Montague, an independent studio based in Brighton in the UK. This server is where I'll be sharing progress on the studio's first game as it happens: prototypes, decisions, dead ends, and eventually a vertical slice.
 
 That game is **Seed.Runner** (working title) — a 3D physics-based survival-adventure. Haul precious cargo across a barren world, where every measured mile leaves something behind. It's early days — we're in pre-production — but it's real, and it's begun.
 
@@ -59,7 +59,7 @@ More soon.
 
 **Title:** Studio Montague Founded — First Look Coming Soon
 
-Today marks the official founding of Studio Montague, an independent, solo game development studio based in Brighton, UK.
+Today marks the official founding of Studio Montague, an independent, solo game development studio based in Brighton in the UK.
 
 The studio's first title, Seed.Runner (working title), is a 3D physics-based survival-adventure: haul precious cargo across a barren world, where every measured mile leaves something behind. The project is currently in pre-production.
 
