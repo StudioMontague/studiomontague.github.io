@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Montague Begins — Studio Montague</title>
+<meta name="description" content="Today marks the official founding of Studio Montague, and the beginning of Seed.Runner's development.">
+<link rel="icon" href="../../assets/sm-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Limelight&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+  /* single post */
+  .post{
+    max-width:680px;
+    width:100%;
+    margin:0 auto;
+  }
+  .back-to-blog{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#8a9c7f;
+    text-decoration:none;
+    margin:0 0 28px;
+    transition:color .2s ease;
+  }
+  .back-to-blog:hover{ color:#b7c4ab; }
+  .post-title{
+    font-family:'Orbitron', sans-serif;
+    font-weight:700;
+    font-size:clamp(30px, 5vw, 44px);
+    letter-spacing:0.03em;
+    color:var(--cream);
+    margin:0 0 12px;
+    text-shadow:0 2px 14px rgba(0,0,0,0.45);
+  }
+  .post-meta{
+    font-size:14px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#8a9c7f;
+    margin:0 0 36px;
+  }
+  .post-hero{
+    display:block;
+    width:100%;
+    max-width:520px;
+    margin:0 auto clamp(40px, 6vw, 56px);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,0.4);
+  }
+  .post-hero img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .post-body{
+    text-align:left;
+  }
+  .post-body p{
+    font-size:19px;
+    line-height:1.75;
+    color:#b7c4ab;
+    margin:0 0 22px;
+  }
+  .post-signoff{
+    margin-top:clamp(32px, 5vw, 48px);
+    padding-top:clamp(24px, 4vw, 32px);
+    border-top:1px solid rgba(201,162,75,0.16);
+  }
+  .post-signoff p{
+    font-size:17px;
+    line-height:1.6;
+    color:#d0b07f;
+    margin:0;
+  }
+  .post-signoff p.role{
+    font-size:14px;
+    color:#8a9c7f;
+    margin-top:2px;
+  }
+
+  /* minimal entrance animation (fadeUp keyframe lives in site.css) */
+  .post-title, .post-meta, .post-hero, .post-body p{
+    animation:fadeUp 0.7s cubic-bezier(.16,.84,.44,1) both;
+  }
+  .post-meta{ animation-delay:0.1s; }
+  .post-hero{ animation-delay:0.2s; }
+  .post-body p:nth-of-type(1){ animation-delay:0.32s; }
+  .post-body p:nth-of-type(2){ animation-delay:0.4s; }
+  .post-body p:nth-of-type(3){ animation-delay:0.48s; }
+  .post-body p:nth-of-type(4){ animation-delay:0.56s; }
+  .post-body p:nth-of-type(5){ animation-delay:0.64s; }
+  @media (prefers-reduced-motion: reduce){
+    .post-title, .post-meta, .post-hero, .post-body p{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+  }
+
+  /* mobile */
+  @media (max-width:640px){
+    .post-body p{ font-size:17px; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <a href="../../index.html" aria-label="Studio Montague — Home" class="topnav-link">
+      <img src="../../assets/sm-banner.jpg" alt="Studio Montague" class="topnav-img">
+    </a>
+  </nav>
+
+  <div class="topnav-links-bar">
+    <div class="topnav-links-inner">
+      <div class="icon-row icon-row-top">
+        <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+        <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <button type="button" class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      </div>
+      <div class="nav-links">
+        <a href="../" class="active"><span class="drop-cap">B</span>log</a>
+        <a href="../../about.html"><span class="drop-cap">A</span>bout</a>
+      </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="../" class="active"><span class="drop-cap">B</span>log</a>
+        <a href="../../about.html"><span class="drop-cap">A</span>bout</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.mobile-menu-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var menu = document.getElementById(btn.getAttribute('aria-controls'));
+        if(!menu) return;
+        var isOpen = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  </script>
+
+  <div class="wrap">
+    <div class="post">
+      <a href="../" class="back-to-blog">&larr; Back to all posts</a>
+
+      <h1 class="post-title">Studio Montague Begins</h1>
+      <p class="post-meta">Graham Ainge · 31 July 2026</p>
+
+      <div class="post-hero">
+        <img src="../../assets/coin-alpha-social.jpg" alt="Studio Montague founding coin, featuring the studio's whippet mascot, dated 2026">
+      </div>
+
+      <div class="post-body">
+        <p>Today, Studio Montague officially begins.</p>
+        <p>I'm Graham Ainge — founder, and for now the only member, of a new independent game studio based in Brighton, UK. After a decade teaching science and a run touring as a keyboardist and vocalist in a band signed to Island Records, I'm starting again from the beginning: alone, at a desk, building a game.</p>
+        <p>That game is <strong>Seed.Runner</strong> (working title) — a 3D physics-based survival-adventure. Haul precious cargo across a barren world, where every measured mile leaves something behind. It's early. Right now it's pre-production: prototypes, systems, and a lot of paper. But it's real, and it's happening.</p>
+        <p>Studio Montague isn't a big studio, and it isn't trying to be one yet. It's one person, a home studio, and two whippets asleep in the corner — one of whom you'll recognise, cast in bronze, on the coin above. That coin is the first thing I've had made for the studio, and it felt right to mark day one with it.</p>
+        <p>Over the coming months I'll be sharing progress here, on Discord, and on IndieDB — prototypes, dead ends, decisions, and eventually a vertical slice. If you want to follow along from the start, this is the start.</p>
+        <p>More soon, including a proper look at Seed.Runner itself.</p>
+      </div>
+
+      <div class="post-signoff">
+        <p>— Graham</p>
+        <p class="role">Founder &amp; Lead Developer, Studio Montague</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col-left">
+        <p class="tagline">Studio Montague is an independent, solo game development studio<br class="footer-br">based in Brighton, UK.</p>
+        <p class="footer-copyright">&copy; 2026 Studio Montague. All rights reserved.</p>
+      </div>
+      <div class="footer-col-right">
+        <div class="icon-row icon-row-footer">
+          <a href="https://discord.gg/ZYphaKjBQq" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+          <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <div class="footer-links">
+          <a href="#"><span class="drop-cap">F</span>AQ</a>
+          <a href="#"><span class="drop-cap">C</span>ontact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
