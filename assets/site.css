@@ -207,12 +207,12 @@ body{
 }
 .footer-links a:hover{
   opacity:1;
-  color:#e0bd6a;
+  color:var(--cream);
 }
 .footer-links a:hover .drop-cap{
-  color:#e0bd6a;
-  border-color:rgba(201,162,75,0.45);
-  background:rgba(0,0,0,0.2);
+  color:var(--cream);
+  border-color:#c9a24b;
+  background:rgba(201,162,75,0.1);
 }
 .footer-links a.active{
   opacity:1;
