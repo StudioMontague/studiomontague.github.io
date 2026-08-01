@@ -11,6 +11,9 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduceMotion){
     span.textContent = text;
+    // still show an active cursor — site.css's reduced-motion override turns this
+    // into a solid, non-blinking bar rather than leaving it invisible
+    cursor.classList.add('blinking');
     return;
   }
   var startDelay = 22000;
