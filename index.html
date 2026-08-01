@@ -391,6 +391,27 @@
         entries.forEach(function(entry){
           if(entry.isIntersecting){
             project.classList.add('in-view');
+
+            // Reserve the whole card's final height up front too — otherwise, even with
+            // the intro/haul lines individually protected below, the card's own bottom
+            // border (and everything after it: the world-text line, the footer) still
+            // creeps down as those lines' reserved heights get applied one after another.
+            // Briefly fill in the full text, measure, pin project's min-height, clear back
+            // to empty — same trick as the per-line reserveHeight, just at the outer level.
+            (function(){
+              var introSpan = document.getElementById('intro-text');
+              var haulSpan = document.getElementById('haul-text');
+              if(!introSpan || !haulSpan) return;
+              var introOriginal = introSpan.textContent;
+              var haulOriginal = haulSpan.textContent;
+              introSpan.textContent = 'A 3D physics-based survival-adventure';
+              haulSpan.textContent = 'Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.';
+              var finalHeight = project.getBoundingClientRect().height;
+              project.style.minHeight = finalHeight + 'px';
+              introSpan.textContent = introOriginal;
+              haulSpan.textContent = haulOriginal;
+            })();
+
             // reserveHeight (the trailing "true") on intro-text and haul-text stops mid-type
             // word-wraps — e.g. "adventure" or "mile leaves life behind." catching a narrow
             // mobile width — from bumping the logo box or companion image down as they type.
