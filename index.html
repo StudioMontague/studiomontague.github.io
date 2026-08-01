@@ -63,7 +63,10 @@
     border:1px solid rgba(139,178,110,0.22);
     border-radius:14px;
     box-shadow:0 8px 24px rgba(0,0,0,0.3);
-    padding:clamp(22px, 3.6vw, 34px) clamp(24px, 5vw, 44px) 8px;
+    /* horizontal padding now scales continuously from 14px (narrowest phones) up to
+       44px (960px+) — previously fixed at a min of 24px until a hard jump to 14px at
+       the 640px mobile breakpoint, which is what created the "threshold" wrapping */
+    padding:clamp(22px, 3.6vw, 34px) clamp(14px, -2.45px + 4.84vw, 44px) 8px;
     margin:clamp(22px, 4vw, 38px) 0 clamp(10px, 2vw, 16px);
     text-align:left;
     transform:translateY(var(--parallax-y, 0px));
@@ -98,7 +101,8 @@
       8px 6px 14px rgba(0,0,0,0.4);
   }
   .framed-badge-extra{
-    padding:22px 20px 16px;
+    /* left/right padding fluid from 10px to 20px, same reasoning as .project above */
+    padding:22px clamp(10px, 4.52px + 1.61vw, 20px) 16px;
     box-sizing:border-box;
     /* resting state is ~one line tall (padding-top + a single line of haul-line text),
        not 0 — otherwise the first line gets clipped by the bottom border while it's
@@ -108,7 +112,8 @@
     transition:max-height 0.8s ease;
   }
   .haul-line{
-    padding:0 26px;
+    /* fluid 6px to 26px, same reasoning as .project/.framed-badge-extra above */
+    padding:0 clamp(6px, -4.97px + 3.23vw, 26px);
     margin:0 0 22px;
     min-height:0;
     white-space:pre-line;
@@ -145,6 +150,9 @@
   .dev-note, .coming-soon{
     opacity:0;
     transform:translateY(10px);
+  }
+  .dev-note{
+    font-size:clamp(11px, 7.16px + 1.13vw, 18px);
   }
   .dev-note.reveal-in, .coming-soon.reveal-in{
     animation:revealIn 1s ease-out 2s forwards;
@@ -192,12 +200,13 @@
     to{ opacity:1; transform:translateY(0); }
   }
   .project p{text-align:center; color:#b7c4ab;}
-  /* clamp instead of a fixed size — at a flat 17px this line ("A 3D physics-based
-     survival-adventure...") is too wide for narrow phones and "adventure" wraps
-     onto its own line mid-typing; scaling down keeps it on one line on mobile
-     while staying identical to before on desktop */
+  /* fluid clamp, computed against a 340px-960px viewport range, rather than a flat
+     size that only changes at the 640px breakpoint — that flat approach is exactly
+     what caused wrapping in the 640-960px "middle" zone: the container was already
+     narrowing continuously (via .project's own fluid padding) while this stayed at
+     a fixed desktop size the whole way, only shrinking abruptly right at 640px */
   .intro-line{
-    font-size:clamp(12px, 4vw, 17px);
+    font-size:clamp(12px, 9.26px + 0.81vw, 17px);
   }
   .gradient-line{
     font-size:23px;
@@ -206,9 +215,15 @@
   .gradient-line.tone-gold{ color:#e0bd6a; }
   .gradient-line.dev-typed-line{
     font-family:'Courier New', Courier, monospace;
-    /* clamp instead of a flat mobile breakpoint — scales continuously so the haul
-       sentence doesn't wrap awkwardly on narrower phones the old flat 15px still missed */
-    font-size:clamp(13px, 4vw, 19px);
+    /* same fluid approach as .intro-line. Courier New is exactly 0.6em per character
+       (a fixed, documented metric, not an estimate) — "where every measured mile
+       leaves life behind." is 46 characters, the longer of the two haul lines, and
+       is the real limiting case here. 12px is a deliberate compromise: a touch
+       bigger than before, but monospace + 46 characters has a hard mathematical
+       floor, so on the very narrowest phones (sub-~375px) this line may still wrap
+       occasionally — the box height is measured live via JS regardless of line
+       count, so it'll size correctly even if that happens, just a touch taller. */
+    font-size:clamp(12px, 8.16px + 1.13vw, 19px);
     letter-spacing:normal;
     opacity:1;
   }
@@ -230,7 +245,7 @@
     min-height:48px;
   }
   .coming-soon{
-    font-size:13px;
+    font-size:clamp(9px, 6.81px + 0.65vw, 13px);
     font-style:italic;
     color:#5f6f56;
     letter-spacing:0.03em;
@@ -258,11 +273,12 @@
     }
   }
 
-  /* mobile */
+  /* mobile — font-sizes and horizontal padding for the typed lines are handled by
+     the fluid clamp()s above now, active across the whole viewport range, not just
+     below this breakpoint. Only genuinely mobile-only layout rules live here. */
   @media (max-width:640px){
-    .project{ padding-left:22px; padding-right:22px; transform:none !important; transition:none !important; }
+    .project{ transform:none !important; transition:none !important; }
     .framed-badge{ padding:0 0 16px; max-width:100%; box-sizing:border-box; }
-    .haul-line{ padding:0 14px; }
     .status{ font-size:11px; padding:5px 14px; }
   }
 </style>
@@ -329,8 +345,8 @@
           </div>
         </div>
       </div>
-      <p class="dev-note" style="margin-top:0; margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
-      <p class="coming-soon">Images used are placeholders. Devlogs and updates — coming soon.</p>
+      <p class="dev-note" style="margin-top:0; margin-bottom:0; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
+      <p class="coming-soon">Images are placeholders. <a href="blog/" style="color:#8fd47a; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px;">Devlogs and updates</a> coming soon.</p>
     </div>
   </div>
 
@@ -338,7 +354,7 @@
     <p class="footer-motto"><span id="footer-motto-text"></span><span class="type-cursor" id="footer-motto-cursor"></span></p>
     <div class="footer-grid">
       <div class="footer-col-left">
-        <p class="tagline">Studio Montague is an independent game development studio <br class="footer-br">based in Brighton in the UK.</p>
+        <p class="tagline">Studio Montague is an independent game development studio based in Brighton in the UK.</p>
         <p class="footer-copyright">&copy; 2026 Studio Montague. All rights reserved.</p>
       </div>
       <div class="footer-col-right">

@@ -162,7 +162,14 @@ body{
   background:none;
   border:none;
   cursor:pointer;
+  /* matches the icon anchors' own resting opacity — without this, the entrance
+     animation's fill-mode:both held it at 0.85 during/just after animating, then it
+     jumped to a default 1.0 the instant JS released the animation, reading as a
+     visible colour/brightness switch right after it settled into position */
+  opacity:0.85;
+  transition:opacity .2s ease;
 }
+.mobile-menu-toggle:hover{ opacity:1; }
 .mobile-menu-toggle span{
   display:block;
   width:100%;
@@ -273,10 +280,16 @@ body{
 .icon-row.icon-row-top > a:nth-child(2){ animation-delay:0.3s; }
 .icon-row.icon-row-top > a:nth-child(3){ animation-delay:0.42s; }
 .icon-row.icon-row-top > a:nth-child(4){ animation-delay:0.54s; }
-/* .mobile-menu-toggle is intentionally excluded — it's display:none until the mobile
-   breakpoint, and a CSS animation replays from scratch the moment a display:none
-   element becomes visible, which caused it to visibly "stick" off-screen while the
-   window was being narrowed past 640px and only resolve once resizing stopped. */
+/* .mobile-menu-toggle doesn't get this animation applied generally — it's display:none
+   until the mobile breakpoint, and a CSS animation replays from scratch the moment a
+   display:none element becomes visible, which caused it to visibly "stick" off-screen
+   while the window was being narrowed past 640px and only resolve once resizing stopped.
+   site.js adds .entrance-animate to it, once, only if the page loads already at mobile
+   width — so it still slides in alongside the icons on a fresh mobile load, without
+   risking that resize-triggered replay glitch. */
+.mobile-menu-toggle.entrance-animate{
+  animation:iconsSlideInLeft 0.65s cubic-bezier(.16,.84,.44,1) 0.66s both;
+}
 @keyframes iconsSlideInLeft{
   0%{ opacity:0; transform:translateX(-160px); }
   55%{ opacity:0.85; }
@@ -413,5 +426,4 @@ footer a{color:#d0b07f; text-decoration:none;}
   .footer-col-left{ text-align:center; }
   .footer-col-left .tagline{ text-align:center; }
   .footer-col-right{ align-items:center; }
-  .footer-br{ display:none; }
 }

@@ -31,3 +31,17 @@
     step();
   }, startDelay);
 })();
+
+// Mobile hamburger entrance: if the page loads already narrow enough to show the
+// hamburger, let it slide in alongside the social icons like a fresh page load should.
+// Only runs once, at load — never on resize — so it can't replay/"stick" mid-resize,
+// which is why the CSS animation isn't just applied to it generally.
+(function(){
+  var toggle = document.querySelector('.mobile-menu-toggle');
+  if(!toggle) return;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return;
+  if(window.innerWidth <= 640){
+    toggle.classList.add('entrance-animate');
+  }
+})();
