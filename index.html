@@ -45,7 +45,7 @@
     padding:6px 18px;
     margin-bottom:14px;
     opacity:0;
-    animation:statusFadeIn 1.2s cubic-bezier(.16,.84,.44,1) 0.35s both;
+    animation:statusFadeIn 2.4s cubic-bezier(.16,.84,.44,1) 0s both;
   }
   @keyframes statusFadeIn{
     from{ opacity:0; transform:translateY(-6px) scale(0.94); }
@@ -62,6 +62,7 @@
     background:linear-gradient(160deg, rgba(122,166,96,0.05), rgba(255,255,255,0.02));
     border:1px solid rgba(139,178,110,0.22);
     border-radius:14px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
     padding:clamp(22px, 3.6vw, 34px) clamp(24px, 5vw, 44px) 8px;
     margin:clamp(22px, 4vw, 38px) 0 clamp(10px, 2vw, 16px);
     text-align:left;
@@ -71,20 +72,18 @@
   .framed-badge{
     position:relative;
     display:inline-block;
-    padding:0;
+    padding:0 0 16px;
     overflow:hidden;
     border:1px solid rgba(224,189,106,0.4);
     border-radius:10px;
     background:rgba(0,0,0,0.14);
     box-shadow:0 4px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
     margin-top:16px;
-    margin-bottom:14px;
+    margin-bottom:8px;
+    transition:padding-bottom 0.8s ease;
   }
   .logo-frame{
     padding-top:16px;
-  }
-  .logo-image-wrap{
-    position:relative;
   }
   .game-logo{
     display:block;
@@ -92,9 +91,21 @@
     height:auto;
     margin:0 auto;
     border-radius:9px;
+    /* thin solid "edge" sliver (35deg toward bottom-right) gives the image a hint of
+       physical thickness, layered under the existing soft ambient drop shadow */
+    box-shadow:
+      3px 2px 0 rgba(20,14,8,0.85),
+      8px 6px 14px rgba(0,0,0,0.4);
   }
   .framed-badge-extra{
     padding:22px 20px 16px;
+    box-sizing:border-box;
+    /* resting state is ~one line tall (padding-top + a single line of haul-line text),
+       not 0 — otherwise the first line gets clipped by the bottom border while it's
+       still being typed, before the box's first extend fires */
+    max-height:56px;
+    overflow:hidden;
+    transition:max-height 0.8s ease;
   }
   .haul-line{
     padding:0 26px;
@@ -102,6 +113,10 @@
     min-height:0;
     white-space:pre-line;
     transition:min-height 0.6s ease;
+  }
+  .haul-line u{
+    text-decoration-color:rgba(224,189,106,0.55);
+    text-underline-offset:3px;
   }
   .companion-image{
     display:block;
@@ -112,26 +127,28 @@
     border-radius:9px;
     opacity:0;
     transform:translateY(10px);
+    /* thin solid "edge" sliver (35deg toward bottom-right) gives the image a hint of
+       physical thickness, layered under the existing soft ambient drop shadow — matches the logo.
+       inset shadow on top adds a soft vignette, darkening the corners/edges */
+    box-shadow:
+      3px 2px 0 rgba(20,14,8,0.85),
+      8px 6px 14px rgba(0,0,0,0.4),
+      inset 0 0 50px rgba(0,0,0,0.55);
   }
-  /* revealed by JS once "// the world we build" starts typing, well after the box has
-     finished growing for the haul sentence — not on load with the logo */
+  /* revealed by JS once the haul sentence has fully finished typing (its onComplete),
+     not on load with the logo and not while haul is still being typed out */
   .companion-image.image-in{
-    animation:revealIn 3s ease-out forwards;
+    animation:revealIn 6.25s ease-out forwards;
   }
-  .working-title-overlay{
-    position:absolute;
-    left:50%;
-    top:77%;
-    transform:translate(-50%, -50%);
-    font-style:italic;
-    font-size:clamp(11px, 2.4vw, 15px);
-    letter-spacing:0.04em;
-    color:#8a9c7f;
-    text-shadow:0 1px 4px rgba(0,0,0,0.85);
-    white-space:nowrap;
-    pointer-events:none;
+  /* "In development..." and the placeholder-images note — plain fade, triggered by JS
+     at the same moment as the companion image, but held back an extra 2s via delay */
+  .dev-note, .coming-soon{
+    opacity:0;
+    transform:translateY(10px);
   }
-  .working-title-overlay p{ margin:0; }
+  .dev-note.reveal-in, .coming-soon.reveal-in{
+    animation:revealIn 1s ease-out 2s forwards;
+  }
   .reveal-text{
     opacity:0;
     transform:translateY(10px);
@@ -143,12 +160,24 @@
      the smaller text elements sharing the .reveal-text class */
   .project.in-view img.reveal-text{
     animation-name:revealIn;
-    animation-duration:2s;
+    animation-duration:4s;
     animation-timing-function:ease-out;
     animation-fill-mode:forwards;
   }
   @keyframes revealIn{
     from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  /* seed runner logo gets a bigger rise than the shared .reveal-text elements —
+     starts much lower, close to the box's bottom edge, then settles into place */
+  .game-logo.reveal-text{
+    transform:translateY(60px);
+  }
+  .project.in-view .game-logo.reveal-text{
+    animation-name:revealInLogo;
+  }
+  @keyframes revealInLogo{
+    from{ opacity:0; transform:translateY(60px); }
     to{ opacity:1; transform:translateY(0); }
   }
   .reveal-text-inv{
@@ -168,59 +197,28 @@
     text-align:center;
   }
   .gradient-line.tone-gold{ color:#e0bd6a; }
-  .gradient-line.tone-green{ color:#7fae6f; }
   .gradient-line.dev-typed-line{
     font-family:'Courier New', Courier, monospace;
     font-size:19px;
     letter-spacing:normal;
     opacity:1;
   }
-  .type-cursor{
-    display:inline-block;
-    position:relative;
-    top:4px;
-    width:2px;
-    height:1em;
-    background:#7fae6f;
-    margin-left:2px;
-    vertical-align:baseline;
-    opacity:0;
-    transition:background-color 3s linear;
-  }
-  .type-cursor.blinking{
-    animation:cursorBlink 1.125s step-end infinite;
-  }
-  @keyframes cursorBlink{
-    0%, 49%{ opacity:1; }
-    50%, 100%{ opacity:0; }
-  }
+  /* .type-cursor / .blinking / cursorBlink now live in the shared assets/site.css,
+     since the footer motto on every page needs them too, not just this page */
   /* page-scoped override of the shared .wrap top padding — tightens the gap
      between the nav bar and the "In active pre-production" badge on this page only */
   .wrap{
     padding-top:clamp(22px, 4vw, 38px);
   }
   .pre-section{
-    flex:1;
+    /* no flex:1 here — on a tall/narrow window, leftover vertical space should
+       collect below the content (.wrap is already flex:1, so any leftover
+       space naturally falls after .project, right above the footer), not get
+       absorbed and centered around this badge */
     display:flex;
     align-items:center;
     justify-content:center;
     min-height:48px;
-  }
-  .next-section{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .dev-typed{
-    font-family:'Courier New', Courier, monospace;
-    font-size:14px;
-    letter-spacing:normal;
-    margin-top:clamp(22px, 4vw, 38px);
-    margin-bottom:clamp(22px, 4vw, 38px);
-    text-transform:none;
-    color:#7fae6f;
-    text-align:center;
-    opacity:0.9;
   }
   .coming-soon{
     font-size:13px;
@@ -237,15 +235,26 @@
       opacity:1 !important;
       transform:none !important;
     }
+    .framed-badge-extra{
+      transition:none !important;
+      max-height:none !important;
+    }
+    .framed-badge{
+      transition:none !important;
+    }
+    .dev-note, .coming-soon{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
   }
 
   /* mobile */
   @media (max-width:640px){
     .project{ padding-left:22px; padding-right:22px; transform:none !important; transition:none !important; }
-    .framed-badge{ padding:0; max-width:100%; box-sizing:border-box; }
+    .framed-badge{ padding:0 0 16px; max-width:100%; box-sizing:border-box; }
     .haul-line{ padding:0 14px; }
     .gradient-line.dev-typed-line{ font-size:15px; }
-    .dev-typed{ font-size:12px; }
     .status{ font-size:11px; padding:5px 14px; }
   }
 </style>
@@ -302,31 +311,23 @@
     <div class="project">
       <div style="text-align:center; margin-top:0;">
         <p style="margin:0 0 6px; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em;"><span id="intro-text"></span><span class="type-cursor" id="intro-cursor" style="background:#b7c4ab;"></span></p>
-        <div class="framed-badge">
+        <div class="framed-badge" id="framed-badge">
           <div class="logo-frame">
-            <div class="logo-image-wrap">
-              <img src="assets/seedrunner-logo.jpg" alt="Seed.Runner" class="game-logo reveal-text" style="animation-delay:0.15s;">
-              <div class="working-title-overlay">
-                <p class="reveal-text" style="animation-delay:0.3s;">(working title)</p>
-              </div>
-            </div>
+            <img src="assets/seedrunner-logo.jpg" alt="Seed.Runner" class="game-logo reveal-text" style="animation-delay:1.2s;">
           </div>
-          <div class="framed-badge-extra">
+          <div class="framed-badge-extra" id="framed-badge-extra">
             <p class="gradient-line tone-gold dev-typed-line haul-line"><span id="haul-text"></span><span class="type-cursor" id="haul-cursor" style="background:#e0bd6a;"></span></p>
             <img src="assets/seedrunner-concept-cargo-discovery.jpg" alt="Concept render of the Seed.Runner robot discovering a glowing, cloth-covered cargo object in a wooden cart" class="companion-image" id="companion-image">
           </div>
         </div>
       </div>
-      <p style="margin-top:clamp(19px, 3vw, 28px); margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
+      <p class="dev-note" style="margin-top:0; margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
       <p class="coming-soon">Images used are placeholders. Devlogs and updates — coming soon.</p>
-    </div>
-
-    <div class="next-section">
-      <p class="dev-typed"><span id="world-text"></span><span class="type-cursor" id="world-cursor" style="background:#7fae6f;"></span></p>
     </div>
   </div>
 
   <footer>
+    <p class="footer-motto"><span id="footer-motto-text"></span><span class="type-cursor" id="footer-motto-cursor"></span></p>
     <div class="footer-grid">
       <div class="footer-col-left">
         <p class="tagline">Studio Montague is an independent game development studio <br class="footer-br">based in Brighton in the UK.</p>
@@ -349,10 +350,33 @@
 
   <script>
     (function(){
-      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId, onComplete, reserveHeight, onStart){
+      function escapeHtml(str){
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId, onComplete, reserveHeight, onStart, checkpoints, underlineText){
         var span = document.getElementById(textId);
         var cursor = document.getElementById(cursorId);
         if(!span || !cursor) return;
+        // checkpoints: array of { index, callback, pauseMs } — each fires once typing
+        // reaches that character count. If pauseMs is set, typing holds there (cursor
+        // still blinking) and the callback fires right as typing is about to resume,
+        // rather than the instant the checkpoint is reached.
+        checkpoints = checkpoints || [];
+        // underlineText: once typing reaches this substring, wrap the typed portion of
+        // it in <u> — used to underline canonical brand phrases like "leaves life behind"
+        var underlineStart = underlineText ? text.indexOf(underlineText) : -1;
+        var underlineEnd = underlineStart >= 0 ? underlineStart + underlineText.length : -1;
+        function renderTyped(count){
+          var typed = text.slice(0, count);
+          if(underlineStart >= 0 && count > underlineStart){
+            var pre = typed.slice(0, underlineStart);
+            var mid = typed.slice(underlineStart, Math.min(count, underlineEnd));
+            var post = count > underlineEnd ? typed.slice(underlineEnd) : '';
+            span.innerHTML = escapeHtml(pre) + '<u>' + escapeHtml(mid) + '</u>' + escapeHtml(post);
+          } else {
+            span.textContent = typed;
+          }
+        }
         // reserveHeight: measure the fully-typed text's rendered height up front and pin the
         // parent <p> to it, so content sitting below (e.g. the companion image) doesn't get
         // pushed down line-by-line as the sentence wraps while it's still being typed out.
@@ -369,9 +393,23 @@
           var i = 0;
           function step(){
             if(i < text.length){
-              span.textContent += text.charAt(i);
               i++;
-              setTimeout(step, charDelay);
+              renderTyped(i);
+              var checkpoint = null;
+              for(var c = 0; c < checkpoints.length; c++){
+                if(checkpoints[c].index === i){ checkpoint = checkpoints[c]; break; }
+              }
+              if(checkpoint && checkpoint.pauseMs){
+                setTimeout(function(){
+                  if(checkpoint.callback){ checkpoint.callback(); }
+                  setTimeout(step, charDelay);
+                }, checkpoint.pauseMs);
+              } else {
+                if(checkpoint && checkpoint.callback){
+                  checkpoint.callback();
+                }
+                setTimeout(step, charDelay);
+              }
             } else if(holdAfterMs !== null){
               setTimeout(function(){
                 cursor.classList.remove('blinking');
@@ -392,36 +430,105 @@
           if(entry.isIntersecting){
             project.classList.add('in-view');
 
-            // Reserve the whole card's final height up front too — otherwise, even with
-            // the intro/haul lines individually protected below, the card's own bottom
-            // border (and everything after it: the world-text line, the footer) still
-            // creeps down as those lines' reserved heights get applied one after another.
-            // Briefly fill in the full text, measure, pin project's min-height, clear back
-            // to empty — same trick as the per-line reserveHeight, just at the outer level.
-            (function(){
+            // Pin the outer .project border to its fully-grown resting height right away,
+            // by momentarily rendering the final state (full intro/haul text, framed-badge's
+            // collapsed bottom padding, framed-badge-extra's max-height released) to measure
+            // it, then reverting everything. Only the inner framed-badge box should visibly
+            // animate/step from here on — the outer border stays fixed at its max size.
+            function pinProjectHeight(){
+              var badge = document.getElementById('framed-badge');
+              var extra = document.getElementById('framed-badge-extra');
               var introSpan = document.getElementById('intro-text');
               var haulSpan = document.getElementById('haul-text');
-              if(!introSpan || !haulSpan) return;
+              if(!badge || !extra || !introSpan || !haulSpan) return;
               var introOriginal = introSpan.textContent;
-              var haulOriginal = haulSpan.textContent;
-              introSpan.textContent = 'A 3D physics-based survival-adventure';
+              var haulOriginal = haulSpan.innerHTML;
+              var badgePaddingBottomOriginal = badge.style.paddingBottom;
+              var extraMaxHeightOriginal = extra.style.maxHeight;
+              introSpan.textContent = 'A 3D physics-based survival-adventure...';
               haulSpan.textContent = 'Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.';
-              var finalHeight = project.getBoundingClientRect().height;
-              project.style.minHeight = finalHeight + 'px';
+              badge.style.paddingBottom = '0px';
+              extra.style.maxHeight = 'none';
+              var fullHeight = project.getBoundingClientRect().height;
               introSpan.textContent = introOriginal;
-              haulSpan.textContent = haulOriginal;
-            })();
+              haulSpan.innerHTML = haulOriginal;
+              badge.style.paddingBottom = badgePaddingBottomOriginal;
+              extra.style.maxHeight = extraMaxHeightOriginal;
+              project.style.minHeight = fullHeight + 'px';
+            }
+            pinProjectHeight();
+
+            // The inner box (framed-badge-extra) rests at ~56px (one line tall) so the
+            // first line of haul doesn't get clipped while it's typing, not fully
+            // collapsed to 0. It then extends down in two steps, rather than jumping
+            // straight to its full size: first far enough for the whole haul sentence
+            // (both lines, with its gap) right as "world" finishes typing, then again —
+            // a second, smaller drop — right before the companion image starts its fade.
+            function expandBoxForHaul(){
+              var badge = document.getElementById('framed-badge');
+              var extra = document.getElementById('framed-badge-extra');
+              var haulSpan = document.getElementById('haul-text');
+              var companionImage = document.getElementById('companion-image');
+              if(!extra || !haulSpan) return;
+              // captured/restored via innerHTML (not textContent) so the in-progress
+              // underline markup around "leaves life behind" survives this measurement
+              var haulOriginal = haulSpan.innerHTML;
+              var imageOriginalDisplay = companionImage ? companionImage.style.display : '';
+              var originalPaddingBottom = extra.style.paddingBottom;
+              // measure with the image and the box's own trailing padding removed, so
+              // this step only accounts for the haul sentence itself
+              if(companionImage){ companionImage.style.display = 'none'; }
+              extra.style.paddingBottom = '0px';
+              extra.style.maxHeight = 'none';
+              haulSpan.textContent = 'Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.';
+              var haulOnlyHeight = extra.getBoundingClientRect().height;
+              haulSpan.innerHTML = haulOriginal;
+              if(companionImage){ companionImage.style.display = imageOriginalDisplay; }
+              extra.style.paddingBottom = originalPaddingBottom;
+              // reset to the resting ~56px state (matching the base CSS) before setting
+              // the target, so the transition has the right starting point to animate from
+              extra.style.maxHeight = '56px';
+              void extra.offsetHeight;
+              extra.style.maxHeight = haulOnlyHeight + 'px';
+              // framed-badge's own 16px bottom padding was standing in for the gap below
+              // the logo while the box was collapsed — hand that gap over to
+              // framed-badge-extra's own bottom padding as the box grows, so it doesn't
+              // double up once expanded
+              if(badge){ badge.style.paddingBottom = '0px'; }
+            }
+
+            function expandBoxForImage(){
+              var extra = document.getElementById('framed-badge-extra');
+              if(!extra) return;
+              var currentHeight = extra.getBoundingClientRect().height;
+              extra.style.maxHeight = 'none';
+              var fullHeight = extra.getBoundingClientRect().height;
+              extra.style.maxHeight = currentHeight + 'px';
+              void extra.offsetHeight;
+              extra.style.maxHeight = fullHeight + 'px';
+            }
 
             // reserveHeight (the trailing "true") on intro-text and haul-text stops mid-type
             // word-wraps — e.g. "adventure" or "mile leaves life behind." catching a narrow
             // mobile width — from bumping the logo box or companion image down as they type.
-            typeLine('A 3D physics-based survival-adventure', 500, 73, 1100, 'intro-text', 'intro-cursor', function(){
+            typeLine('A 3D physics-based survival-adventure...', 3200, 73, 1100, 'intro-text', 'intro-cursor', function(){
+              // checkpoint at 42 = character count of "Haul precious cargo across a barren
+              // world," including the comma — pause/blink there, box's first extend fires
+              // right as the pause ends, just before "where" starts typing.
+              // checkpoint at 68 = character count through "...measured mile" — a second,
+              // matching pause/blink, no callback, right before "leaves" starts typing.
               typeLine('Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.', 300, 60, 1100, 'haul-text', 'haul-cursor', function(){
-                typeLine('// the world we build', 3300, 152, null, 'world-text', 'world-cursor', null, false, function(){
-                  var companionImage = document.getElementById('companion-image');
-                  if(companionImage){ companionImage.classList.add('image-in'); }
-                });
-              }, true);
+                expandBoxForImage();
+                var companionImage = document.getElementById('companion-image');
+                if(companionImage){ companionImage.classList.add('image-in'); }
+                var devNote = document.querySelector('.dev-note');
+                var comingSoon = document.querySelector('.coming-soon');
+                if(devNote){ devNote.classList.add('reveal-in'); }
+                if(comingSoon){ comingSoon.classList.add('reveal-in'); }
+              }, true, null, [
+                { index: 42, callback: expandBoxForHaul, pauseMs: 2250 },
+                { index: 68, pauseMs: 2250 }
+              ], 'leaves life behind');
             }, true);
             obs.unobserve(project);
           }
@@ -465,5 +572,6 @@
       window.addEventListener('resize', onScroll);
     })();
   </script>
+  <script src="assets/site.js"></script>
 </body>
 </html>

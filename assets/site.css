@@ -41,7 +41,12 @@ body{
 .topnav-img{
   display:block;
   width:100%;
-  height:clamp(160px, 20vw, 320px);
+  /* matches sm-banner.jpg's own 4485/640 (~7:1) aspect ratio, so the box's proportions
+     track the artwork's instead of capping at a fixed height — on ultrawide windows a
+     fixed cap made the box far wider than the source image, cropping the logo/text out
+     the top and bottom. min-height keeps the banner from getting too short on mobile. */
+  aspect-ratio:4485 / 640;
+  min-height:160px;
   object-fit:cover;
   object-position:center center;
   animation:topnavFadeIn 2.8s ease both;
@@ -56,14 +61,8 @@ body{
   border-top:1px solid rgba(201,162,75,0.14);
   border-bottom:1px solid rgba(201,162,75,0.14);
   box-sizing:border-box;
-  animation:navFadeDown 0.6s cubic-bezier(.16,.84,.44,1) both;
-}
-@keyframes navFadeDown{
-  from{ opacity:0; transform:translateY(-12px); }
-  to{ opacity:1; transform:translateY(0); }
 }
 @media (prefers-reduced-motion: reduce){
-  .topnav-links-bar,
   .topnav-img,
   .icon-row.icon-row-top > a,
   .icon-row.icon-row-top > .mobile-menu-toggle,
@@ -97,8 +96,8 @@ body{
 .nav-links > a:nth-child(2){ animation-delay:0.18s; }
 @keyframes navLinksSlideInRight{
   0%{ opacity:0; transform:translateX(160px); }
-  55%{ opacity:1; }
-  100%{ opacity:1; transform:translateX(0); }
+  55%{ opacity:0.85; }
+  100%{ opacity:0.85; transform:translateX(0); }
 }
 .nav-links a{
   display:inline-flex;
@@ -280,8 +279,8 @@ body{
    window was being narrowed past 640px and only resolve once resizing stopped. */
 @keyframes iconsSlideInLeft{
   0%{ opacity:0; transform:translateX(-160px); }
-  55%{ opacity:1; }
-  100%{ opacity:1; transform:translateX(0); }
+  55%{ opacity:0.85; }
+  100%{ opacity:0.85; transform:translateX(0); }
 }
 .icon-row.icon-row-top a{
   width:auto;
@@ -336,6 +335,45 @@ footer{
 }
 footer p{ font-size:13px; margin:0; color:#d0b07f; }
 footer a{color:#d0b07f; text-decoration:none;}
+
+/* company motto — sits on every page, same as the banner does */
+.footer-motto{
+  font-family:'Courier New', Courier, monospace;
+  font-size:14px;
+  letter-spacing:normal;
+  color:#e0bd6a;
+  text-align:center;
+  opacity:0.9;
+  max-width:960px;
+  margin:0 auto 18px;
+}
+.footer-motto .type-cursor{
+  background:#e0bd6a;
+}
+.type-cursor{
+  display:inline-block;
+  position:relative;
+  top:4px;
+  width:2px;
+  height:1em;
+  background:#7fae6f;
+  margin-left:2px;
+  vertical-align:baseline;
+  opacity:0;
+}
+.type-cursor.blinking{
+  animation:cursorBlink 1.125s step-end infinite;
+}
+@keyframes cursorBlink{
+  0%, 49%{ opacity:1; }
+  50%, 100%{ opacity:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .type-cursor.blinking{
+    animation:none !important;
+    opacity:1 !important;
+  }
+}
 .footer-grid{
   max-width:960px;
   margin:0 auto;

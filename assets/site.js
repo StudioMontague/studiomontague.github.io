@@ -1,0 +1,30 @@
+// Studio Montague — shared site behaviour (runs on every page)
+
+// Footer motto: types out "// the world we build" ~15s after page load, with a
+// blinking cursor once typing starts. Respects prefers-reduced-motion by showing
+// the full line immediately instead of waiting/typing.
+(function(){
+  var span = document.getElementById('footer-motto-text');
+  var cursor = document.getElementById('footer-motto-cursor');
+  if(!span || !cursor) return;
+  var text = '// the world we build';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){
+    span.textContent = text;
+    return;
+  }
+  var startDelay = 22000;
+  var charDelay = 90;
+  setTimeout(function(){
+    cursor.classList.add('blinking');
+    var i = 0;
+    function step(){
+      if(i < text.length){
+        span.textContent += text.charAt(i);
+        i++;
+        setTimeout(step, charDelay);
+      }
+    }
+    step();
+  }, startDelay);
+})();
