@@ -40,11 +40,22 @@
     letter-spacing:0.14em;
     text-transform:uppercase;
     color:#c9a24b;
+    /* previously had no background at all, so it just showed the page gradient behind
+       it — a touch of translucent white lifts it just enough to read as its own badge
+       rather than a hole in the page, at any point along that gradient */
+    background:rgba(255,255,255,0.05);
     border:1px solid rgba(194,164,90,0.4);
     border-radius:999px;
     padding:6px 18px;
     margin-bottom:14px;
     opacity:0;
+    /* subtle badge/coin bevel: soft outer drop shadow for a little lift off the page,
+       plus a thin inner highlight along the top edge and inner shadow along the
+       bottom edge to suggest a slight embossed thickness — kept deliberately faint */
+    box-shadow:
+      0 2px 6px rgba(0,0,0,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.14),
+      inset 0 -1px 0 rgba(0,0,0,0.3);
     animation:statusFadeIn 2.4s cubic-bezier(.16,.84,.44,1) 0s both;
   }
   @keyframes statusFadeIn{
@@ -154,8 +165,11 @@
   .dev-note{
     font-size:clamp(11px, 7.16px + 1.13vw, 18px);
   }
+  /* starts 2s after the companion image (same head-start as before) but duration is
+     stretched to 4.25s so the two finish at exactly the same moment — the companion
+     image is a 6.25s reveal with no delay, so 2s delay + 4.25s duration = 6.25s total */
   .dev-note.reveal-in, .coming-soon.reveal-in{
-    animation:revealIn 1s ease-out 2s forwards;
+    animation:revealIn 4.25s ease-out 2s forwards;
   }
   .reveal-text{
     opacity:0;
@@ -205,6 +219,12 @@
      what caused wrapping in the 640-960px "middle" zone: the container was already
      narrowing continuously (via .project's own fluid padding) while this stayed at
      a fixed desktop size the whole way, only shrinking abruptly right at 640px */
+  /* .project p{color:#b7c4ab} has higher specificity than .intro-line alone (class+type
+     beats a single class), so the color override needs to match that shape to actually
+     win — same cascade gotcha documented elsewhere in this file */
+  .project p.intro-line{
+    color:#8fd47a;
+  }
   .intro-line{
     font-size:clamp(12px, 9.26px + 0.81vw, 17px);
   }
@@ -229,11 +249,8 @@
   }
   /* .type-cursor / .blinking / cursorBlink now live in the shared assets/site.css,
      since the footer motto on every page needs them too, not just this page */
-  /* page-scoped override of the shared .wrap top padding — tightens the gap
-     between the nav bar and the "In active pre-production" badge on this page only */
-  .wrap{
-    padding-top:clamp(22px, 4vw, 38px);
-  }
+  /* .wrap's top padding is now this same tightened value sitewide (assets/site.css),
+     so no page-specific override is needed here any more */
   .pre-section{
     /* no flex:1 here — on a tall/narrow window, leftover vertical space should
        collect below the content (.wrap is already flex:1, so any leftover
@@ -292,11 +309,12 @@
   <div class="topnav-links-bar">
     <div class="topnav-links-inner">
       <div class="icon-row icon-row-top">
-        <a href="https://discord.gg/PEheUnBYg" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
-        <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-        <button type="button" class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+        <a href="index.html" aria-label="Studio Montague — Home" title="Studio Montague — Home" class="nav-home-icon"><img src="assets/sm-icon-tan.png" alt=""></a>
+        <a href="https://discord.gg/PEheUnBYg" target="_blank" rel="noopener" aria-label="Discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB" title="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+        <a href="mailto:contact@studiomontague.dev" aria-label="Email" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <button type="button" class="mobile-menu-toggle" aria-label="Menu" title="Menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
       </div>
       <div class="nav-links">
         <a href="blog/"><span class="drop-cap">B</span><span class="link-text">log</span></a>
@@ -351,6 +369,7 @@
   </div>
 
   <footer>
+    <a href="index.html" aria-label="Studio Montague — Home" title="Studio Montague — Home" class="footer-badge-link"><img src="assets/sm-icon.png" alt="" class="footer-badge-icon"></a>
     <p class="footer-motto"><span id="footer-motto-text"></span><span class="type-cursor" id="footer-motto-cursor"></span></p>
     <div class="footer-grid">
       <div class="footer-col-left">
@@ -359,10 +378,10 @@
       </div>
       <div class="footer-col-right">
         <div class="icon-row icon-row-footer">
-          <a href="https://discord.gg/PEheUnBYg" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-          <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
-          <a href="mailto:contact@studiomontague.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://discord.gg/PEheUnBYg" target="_blank" rel="noopener" aria-label="Discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://x.com/StudioMontague" target="_blank" rel="noopener" aria-label="X / Twitter" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.indiedb.com/company/studio-montague" target="_blank" rel="noopener" aria-label="IndieDB" title="IndieDB"><i class="fa-solid fa-gamepad"></i></a>
+          <a href="mailto:contact@studiomontague.dev" aria-label="Email" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
         <div class="footer-links">
           <a href="#"><span class="drop-cap">F</span><span class="link-text">AQ</span></a>
@@ -377,7 +396,7 @@
       function escapeHtml(str){
         return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       }
-      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId, onComplete, reserveHeight, onStart, checkpoints, underlineText){
+      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId, onComplete, reserveHeight, onStart, checkpoints, underlineText, slowSegmentDelay){
         var span = document.getElementById(textId);
         var cursor = document.getElementById(cursorId);
         if(!span || !cursor) return;
@@ -390,6 +409,15 @@
         // it in <u> — used to underline canonical brand phrases like "leaves life behind"
         var underlineStart = underlineText ? text.indexOf(underlineText) : -1;
         var underlineEnd = underlineStart >= 0 ? underlineStart + underlineText.length : -1;
+        // slowSegmentDelay: { min, max } — while typing is inside the underlined segment,
+        // use a slower, randomised per-character delay instead of the flat charDelay, so
+        // that specific phrase reads with more deliberate, human-like pacing/variance
+        function nextDelay(count){
+          if(slowSegmentDelay && underlineStart >= 0 && count > underlineStart && count <= underlineEnd){
+            return slowSegmentDelay.min + Math.random() * (slowSegmentDelay.max - slowSegmentDelay.min);
+          }
+          return charDelay;
+        }
         function renderTyped(count){
           var typed = text.slice(0, count);
           if(underlineStart >= 0 && count > underlineStart){
@@ -426,13 +454,13 @@
               if(checkpoint && checkpoint.pauseMs){
                 setTimeout(function(){
                   if(checkpoint.callback){ checkpoint.callback(); }
-                  setTimeout(step, charDelay);
+                  setTimeout(step, nextDelay(i));
                 }, checkpoint.pauseMs);
               } else {
                 if(checkpoint && checkpoint.callback){
                   checkpoint.callback();
                 }
-                setTimeout(step, charDelay);
+                setTimeout(step, nextDelay(i));
               }
             } else if(holdAfterMs !== null){
               setTimeout(function(){
@@ -537,11 +565,16 @@
             // mobile width — from bumping the logo box or companion image down as they type.
             typeLine('A 3D physics-based survival-adventure...', 3200, 73, 1100, 'intro-text', 'intro-cursor', function(){
               // checkpoint at 42 = character count of "Haul precious cargo across a barren
-              // world," including the comma — pause/blink there, box's first extend fires
-              // right as the pause ends, just before "where" starts typing.
-              // checkpoint at 68 = character count through "...measured mile" — a second,
-              // matching pause/blink, no callback, right before "leaves" starts typing.
-              typeLine('Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.', 300, 60, 1100, 'haul-text', 'haul-cursor', function(){
+              // world," including the comma — fires expandBoxForHaul right there (box's
+              // first extend) and holds for a brief pause (2 blinks, 2250ms) before
+              // "where..." starts typing.
+              // checkpoint at 68 = character count through "...measured mile" — a matching
+              // pause (2 blinks, 2250ms) right before "leaves life behind" starts typing.
+              // Plus a pause/blink once typing is fully done (holdAfterMs below), directly
+              // after "behind."'s full stop. "leaves life behind" itself also types slower
+              // and with randomised per-character timing via slowSegmentDelay below, rather
+              // than the flat 60ms used for the rest of the line.
+              typeLine('Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.', 300, 60, 2250, 'haul-text', 'haul-cursor', function(){
                 expandBoxForImage();
                 var companionImage = document.getElementById('companion-image');
                 if(companionImage){ companionImage.classList.add('image-in'); }
@@ -552,7 +585,7 @@
               }, true, null, [
                 { index: 42, callback: expandBoxForHaul, pauseMs: 2250 },
                 { index: 68, pauseMs: 2250 }
-              ], 'leaves life behind');
+              ], 'leaves life behind', { min: 100, max: 170 });
             }, true);
             obs.unobserve(project);
           }

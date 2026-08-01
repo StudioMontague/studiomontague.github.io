@@ -1,6 +1,6 @@
 // Studio Montague — shared site behaviour (runs on every page)
 
-// Footer motto: types out "// the world we build" ~15s after page load, with a
+// Footer motto: types out "// the world we build" 25s after page load, with a
 // blinking cursor once typing starts. Respects prefers-reduced-motion by showing
 // the full line immediately instead of waiting/typing.
 (function(){
@@ -16,8 +16,15 @@
     cursor.classList.add('blinking');
     return;
   }
-  var startDelay = 22000;
-  var charDelay = 90;
+  var startDelay = 25000;
+  // per-character delay is randomised within a range (not a fixed interval) so the
+  // typing reads like an actual human hand rather than a metronome — slower overall
+  // (was a flat 90ms) with real variance between keystrokes each time the page loads
+  var minCharDelay = 110;
+  var maxCharDelay = 230;
+  function nextCharDelay(){
+    return minCharDelay + Math.random() * (maxCharDelay - minCharDelay);
+  }
   setTimeout(function(){
     cursor.classList.add('blinking');
     var i = 0;
@@ -25,7 +32,7 @@
       if(i < text.length){
         span.textContent += text.charAt(i);
         i++;
-        setTimeout(step, charDelay);
+        setTimeout(step, nextCharDelay());
       }
     }
     step();

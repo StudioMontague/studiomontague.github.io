@@ -58,8 +58,10 @@ body{
 .topnav-links-bar{
   width:100%;
   background-color:#120d08;
-  border-top:1px solid rgba(201,162,75,0.14);
-  border-bottom:1px solid rgba(201,162,75,0.14);
+  /* tan on top, gold on the bottom edge — same two tones used for the footer text
+     (#d0b07f) and the gold accents elsewhere (#e0bd6a, e.g. .tone-gold) */
+  border-top:2px solid rgba(208,176,127,0.45);
+  border-bottom:2px solid rgba(224,189,106,0.45);
   box-sizing:border-box;
 }
 @media (prefers-reduced-motion: reduce){
@@ -276,10 +278,12 @@ body{
 .icon-row.icon-row-top > a{
   animation:iconsSlideInLeft 0.65s cubic-bezier(.16,.84,.44,1) both;
 }
-.icon-row.icon-row-top > a:nth-child(1){ animation-delay:0.18s; }
-.icon-row.icon-row-top > a:nth-child(2){ animation-delay:0.3s; }
-.icon-row.icon-row-top > a:nth-child(3){ animation-delay:0.42s; }
-.icon-row.icon-row-top > a:nth-child(4){ animation-delay:0.54s; }
+/* five stops now (home icon leads the row) at the same 0.12s cadence as before */
+.icon-row.icon-row-top > a:nth-child(1){ animation-delay:0.06s; }
+.icon-row.icon-row-top > a:nth-child(2){ animation-delay:0.18s; }
+.icon-row.icon-row-top > a:nth-child(3){ animation-delay:0.3s; }
+.icon-row.icon-row-top > a:nth-child(4){ animation-delay:0.42s; }
+.icon-row.icon-row-top > a:nth-child(5){ animation-delay:0.54s; }
 /* .mobile-menu-toggle doesn't get this animation applied generally — it's display:none
    until the mobile breakpoint, and a CSS animation replays from scratch the moment a
    display:none element becomes visible, which caused it to visibly "stick" off-screen
@@ -312,6 +316,20 @@ body{
   opacity:1;
   color:var(--cream);
 }
+/* homepage-link icon (studio mascot mark) — sits before Discord in the top icon row.
+   It's an <img>, not a font glyph, so it can't pick up color:currentColor like its FA
+   siblings; opacity/entrance-animation still come from the shared .icon-row-top a
+   rules above since it's a plain <a> child, this just sizes the image itself and
+   adds a matching subtle hover brighten in place of the colour shift. */
+.icon-row.icon-row-top a.nav-home-icon img{
+  display:block;
+  width:27px;
+  height:27px;
+  transition:filter .2s ease;
+}
+.icon-row.icon-row-top a.nav-home-icon:hover img{
+  filter:brightness(1.25);
+}
 .icon-row.icon-row-footer a{
   color:#d0b07f;
   border-color:rgba(239,230,212,0.4);
@@ -325,7 +343,11 @@ body{
 .wrap{
   max-width:960px;
   width:100%;
-  padding:clamp(56px, 10vw, 96px) 24px clamp(40px, 6vw, 64px);
+  /* top value matches the gap the "In active pre-production" badge uses on the
+     homepage — tight and consistent whether or not the mobile hamburger dropdown
+     is open, since .wrap's own padding doesn't depend on the topnav bar's height.
+     This is now the sitewide default; don't override it per-page. */
+  padding:clamp(22px, 4vw, 38px) 24px clamp(40px, 6vw, 64px);
   text-align:center;
   flex:1;
   display:flex;
@@ -349,12 +371,43 @@ footer{
 footer p{ font-size:13px; margin:0; color:#d0b07f; }
 footer a{color:#d0b07f; text-decoration:none;}
 
+/* studio mark, sits above the motto — same footprint as the footer icon-row buttons
+   (34px), keeps the footer's existing top padding as the gap up to the border, and
+   pushes the motto (and everything below it) down by its own height + margin.
+   Wrapped in a link (homepage), matching the same mark in the top nav. */
+.footer-badge-link{
+  display:block;
+  width:34px;
+  height:34px;
+  margin:0 auto 14px;
+  border-radius:50%;
+  transition:background .2s ease, box-shadow .2s ease;
+}
+.footer-badge-icon{
+  display:block;
+  width:34px;
+  height:34px;
+  opacity:0.92;
+  transition:opacity .2s ease;
+}
+/* hover glow matches the icon-row-footer buttons right below it: same amber
+   background wash and cream ring, just applied round the mark instead of a
+   permanent border (the artwork's already a circle, a resting border would
+   double up on it) */
+.footer-badge-link:hover{
+  background:rgba(201,162,75,0.1);
+  box-shadow:0 0 0 1px rgba(239,230,212,0.4);
+}
+.footer-badge-link:hover .footer-badge-icon{
+  opacity:1;
+}
+
 /* company motto — sits on every page, same as the banner does */
 .footer-motto{
   font-family:'Courier New', Courier, monospace;
   font-size:14px;
   letter-spacing:normal;
-  color:#e0bd6a;
+  color:#d0b07f;
   text-align:center;
   opacity:0.9;
   max-width:960px;
@@ -370,7 +423,9 @@ footer a{color:#d0b07f; text-decoration:none;}
   width:2px;
   height:1em;
   background:#7fae6f;
-  margin-left:2px;
+  /* was 2px — that small gap read as a stray space after punctuation like the comma
+     in "world,", especially noticeable during a held pause. Sits flush now. */
+  margin-left:0;
   vertical-align:baseline;
   opacity:0;
 }
@@ -419,6 +474,7 @@ footer a{color:#d0b07f; text-decoration:none;}
   .topnav-links-inner{ justify-content:center; padding:7px 16px; gap:10px 18px; }
   .icon-row.icon-row-top{ gap:16px; }
   .icon-row.icon-row-top a{ font-size:22px; }
+  .icon-row.icon-row-top a.nav-home-icon img{ width:22px; height:22px; }
   .nav-links{ display:none; }
   .mobile-menu-toggle{ display:flex; }
   .wrap{ padding-left:16px; padding-right:16px; }
