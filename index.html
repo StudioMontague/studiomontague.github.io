@@ -113,9 +113,10 @@
     opacity:0;
     transform:translateY(10px);
   }
-  /* revealed by JS once the haul sentence starts typing, not on load with the logo */
+  /* revealed by JS once "// the world we build" starts typing, well after the box has
+     finished growing for the haul sentence — not on load with the logo */
   .companion-image.image-in{
-    animation:revealIn 2s ease-out forwards;
+    animation:revealIn 3s ease-out forwards;
   }
   .working-title-overlay{
     position:absolute;
@@ -390,14 +391,17 @@
         entries.forEach(function(entry){
           if(entry.isIntersecting){
             project.classList.add('in-view');
+            // reserveHeight (the trailing "true") on intro-text and haul-text stops mid-type
+            // word-wraps — e.g. "adventure" or "mile leaves life behind." catching a narrow
+            // mobile width — from bumping the logo box or companion image down as they type.
             typeLine('A 3D physics-based survival-adventure', 500, 73, 1100, 'intro-text', 'intro-cursor', function(){
               typeLine('Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.', 300, 60, 1100, 'haul-text', 'haul-cursor', function(){
-                typeLine('// the world we build', 300, 152, null, 'world-text', 'world-cursor');
-              }, true, function(){
-                var companionImage = document.getElementById('companion-image');
-                if(companionImage){ companionImage.classList.add('image-in'); }
-              });
-            });
+                typeLine('// the world we build', 300, 152, null, 'world-text', 'world-cursor', null, false, function(){
+                  var companionImage = document.getElementById('companion-image');
+                  if(companionImage){ companionImage.classList.add('image-in'); }
+                });
+              }, true);
+            }, true);
             obs.unobserve(project);
           }
         });
