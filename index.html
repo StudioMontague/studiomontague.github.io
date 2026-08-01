@@ -39,7 +39,7 @@
     font-size:13px;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color:#c2a45a;
+    color:#c9a24b;
     border:1px solid rgba(194,164,90,0.4);
     border-radius:999px;
     padding:6px 18px;
@@ -192,6 +192,13 @@
     to{ opacity:1; transform:translateY(0); }
   }
   .project p{text-align:center; color:#b7c4ab;}
+  /* clamp instead of a fixed size — at a flat 17px this line ("A 3D physics-based
+     survival-adventure...") is too wide for narrow phones and "adventure" wraps
+     onto its own line mid-typing; scaling down keeps it on one line on mobile
+     while staying identical to before on desktop */
+  .intro-line{
+    font-size:clamp(12px, 4vw, 17px);
+  }
   .gradient-line{
     font-size:23px;
     text-align:center;
@@ -199,7 +206,9 @@
   .gradient-line.tone-gold{ color:#e0bd6a; }
   .gradient-line.dev-typed-line{
     font-family:'Courier New', Courier, monospace;
-    font-size:19px;
+    /* clamp instead of a flat mobile breakpoint — scales continuously so the haul
+       sentence doesn't wrap awkwardly on narrower phones the old flat 15px still missed */
+    font-size:clamp(13px, 4vw, 19px);
     letter-spacing:normal;
     opacity:1;
   }
@@ -254,7 +263,6 @@
     .project{ padding-left:22px; padding-right:22px; transform:none !important; transition:none !important; }
     .framed-badge{ padding:0 0 16px; max-width:100%; box-sizing:border-box; }
     .haul-line{ padding:0 14px; }
-    .gradient-line.dev-typed-line{ font-size:15px; }
     .status{ font-size:11px; padding:5px 14px; }
   }
 </style>
@@ -310,7 +318,7 @@
 
     <div class="project">
       <div style="text-align:center; margin-top:0;">
-        <p style="margin:0 0 6px; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em;"><span id="intro-text"></span><span class="type-cursor" id="intro-cursor" style="background:#b7c4ab;"></span></p>
+        <p class="intro-line" style="margin:0 0 6px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em;"><span id="intro-text"></span><span class="type-cursor" id="intro-cursor" style="background:#b7c4ab;"></span></p>
         <div class="framed-badge" id="framed-badge">
           <div class="logo-frame">
             <img src="assets/seedrunner-logo.jpg" alt="Seed.Runner" class="game-logo reveal-text" style="animation-delay:1.2s;">
