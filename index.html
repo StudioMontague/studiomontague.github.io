@@ -43,7 +43,7 @@
     border:1px solid rgba(194,164,90,0.4);
     border-radius:999px;
     padding:6px 18px;
-    margin-bottom:36px;
+    margin-bottom:14px;
     opacity:0;
     animation:statusFadeIn 1.2s cubic-bezier(.16,.84,.44,1) 0.35s both;
   }
@@ -55,15 +55,15 @@
     font-size:19px;
     line-height:1.65;
     color:#a89a86;
-    margin:0 0 18px;
+    margin:0 0 7px;
   }
   .project{
     position:relative;
     background:linear-gradient(160deg, rgba(122,166,96,0.05), rgba(255,255,255,0.02));
     border:1px solid rgba(139,178,110,0.22);
     border-radius:14px;
-    padding:clamp(54px, 9vw, 84px) clamp(24px, 5vw, 44px) 21px;
-    margin:clamp(56px, 10vw, 96px) 0 clamp(24px, 5vw, 40px);
+    padding:clamp(22px, 3.6vw, 34px) clamp(24px, 5vw, 44px) 8px;
+    margin:clamp(22px, 4vw, 38px) 0 clamp(10px, 2vw, 16px);
     text-align:left;
     transform:translateY(var(--parallax-y, 0px));
     transition:transform .1s linear;
@@ -77,8 +77,14 @@
     border-radius:10px;
     background:rgba(0,0,0,0.14);
     box-shadow:0 4px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-    margin-top:41px;
-    margin-bottom:35px;
+    margin-top:16px;
+    margin-bottom:14px;
+  }
+  .logo-frame{
+    padding-top:16px;
+  }
+  .logo-image-wrap{
+    position:relative;
   }
   .game-logo{
     display:block;
@@ -86,6 +92,30 @@
     height:auto;
     margin:0 auto;
     border-radius:9px;
+  }
+  .framed-badge-extra{
+    padding:22px 20px 16px;
+  }
+  .haul-line{
+    padding:0 26px;
+    margin:0 0 22px;
+    min-height:0;
+    white-space:pre-line;
+    transition:min-height 0.6s ease;
+  }
+  .companion-image{
+    display:block;
+    width:min(480px, 100%);
+    aspect-ratio:1400 / 764;
+    object-fit:cover;
+    margin:0 auto;
+    border-radius:9px;
+    opacity:0;
+    transform:translateY(10px);
+  }
+  /* revealed by JS once the haul sentence starts typing, not on load with the logo */
+  .companion-image.image-in{
+    animation:revealIn 2s ease-out forwards;
   }
   .working-title-overlay{
     position:absolute;
@@ -107,6 +137,14 @@
   }
   .project.in-view .reveal-text{
     animation:revealIn 0.9s ease-out forwards;
+  }
+  /* the logo and companion image get a slower, more deliberate fade-in than
+     the smaller text elements sharing the .reveal-text class */
+  .project.in-view img.reveal-text{
+    animation-name:revealIn;
+    animation-duration:2s;
+    animation-timing-function:ease-out;
+    animation-fill-mode:forwards;
   }
   @keyframes revealIn{
     from{ opacity:0; transform:translateY(10px); }
@@ -136,19 +174,6 @@
     letter-spacing:normal;
     opacity:1;
   }
-  .word-stack{
-    display:inline-block;
-    font-family:'Orbitron', sans-serif;
-    font-weight:600;
-    font-size:29px;
-    letter-spacing:0.04em;
-    white-space:nowrap;
-    margin-top:clamp(16px, 3vw, 28px);
-    margin-bottom:clamp(48px, 7.5vw, 84px);
-  }
-  .stack-word:nth-child(1){ color:#c9a24b; }
-  .stack-word:nth-child(2){ color:#a4ac5e; }
-  .stack-word:nth-child(3){ color:#7fae6f; }
   .type-cursor{
     display:inline-block;
     position:relative;
@@ -161,20 +186,17 @@
     opacity:0;
     transition:background-color 3s linear;
   }
-  .seedling-icon{
-    position:absolute;
-    left:0;
-    font-size:1.65em;
-    opacity:0;
-    transform:translateX(-50%) scale(0.6);
-    transform-origin:center;
-  }
   .type-cursor.blinking{
     animation:cursorBlink 1.125s step-end infinite;
   }
   @keyframes cursorBlink{
     0%, 49%{ opacity:1; }
     50%, 100%{ opacity:0; }
+  }
+  /* page-scoped override of the shared .wrap top padding — tightens the gap
+     between the nav bar and the "In active pre-production" badge on this page only */
+  .wrap{
+    padding-top:clamp(22px, 4vw, 38px);
   }
   .pre-section{
     flex:1;
@@ -192,8 +214,8 @@
     font-family:'Courier New', Courier, monospace;
     font-size:14px;
     letter-spacing:normal;
-    margin-top:clamp(56px, 10vw, 96px);
-    margin-bottom:clamp(56px, 10vw, 96px);
+    margin-top:clamp(22px, 4vw, 38px);
+    margin-bottom:clamp(22px, 4vw, 38px);
     text-transform:none;
     color:#7fae6f;
     text-align:center;
@@ -204,11 +226,11 @@
     font-style:italic;
     color:#5f6f56;
     letter-spacing:0.03em;
-    margin:10px 0 0;
+    margin:4px 0 0;
   }
 
   @media (prefers-reduced-motion: reduce){
-    .status, .project{
+    .status, .project, .haul-line, .companion-image{
       animation:none !important;
       transition:none !important;
       opacity:1 !important;
@@ -220,7 +242,7 @@
   @media (max-width:640px){
     .project{ padding-left:22px; padding-right:22px; transform:none !important; transition:none !important; }
     .framed-badge{ padding:0; max-width:100%; box-sizing:border-box; }
-    .word-stack{ font-size:clamp(18px, 6.5vw, 29px); }
+    .haul-line{ padding:0 14px; }
     .gradient-line.dev-typed-line{ font-size:15px; }
     .dev-typed{ font-size:12px; }
     .status{ font-size:11px; padding:5px 14px; }
@@ -278,34 +300,24 @@
 
     <div class="project">
       <div style="text-align:center; margin-top:0;">
-        <p style="margin:0 0 16px; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em;"><span id="intro-text"></span><span class="type-cursor" id="intro-cursor" style="background:#b7c4ab;"></span></p>
+        <p style="margin:0 0 6px; font-size:17px; font-family:'Orbitron', sans-serif; font-weight:600; letter-spacing:0.02em;"><span id="intro-text"></span><span class="type-cursor" id="intro-cursor" style="background:#b7c4ab;"></span></p>
         <div class="framed-badge">
-          <img src="assets/seedrunner-logo.jpg" alt="Seed.Runner" class="game-logo reveal-text" style="animation-delay:0.15s;">
-          <div class="working-title-overlay">
-            <p class="reveal-text" style="animation-delay:0.3s;">(working title)</p>
+          <div class="logo-frame">
+            <div class="logo-image-wrap">
+              <img src="assets/seedrunner-logo.jpg" alt="Seed.Runner" class="game-logo reveal-text" style="animation-delay:0.15s;">
+              <div class="working-title-overlay">
+                <p class="reveal-text" style="animation-delay:0.3s;">(working title)</p>
+              </div>
+            </div>
+          </div>
+          <div class="framed-badge-extra">
+            <p class="gradient-line tone-gold dev-typed-line haul-line"><span id="haul-text"></span><span class="type-cursor" id="haul-cursor" style="background:#e0bd6a;"></span></p>
+            <img src="assets/seedrunner-concept-cargo-discovery.jpg" alt="Concept render of the Seed.Runner robot discovering a glowing, cloth-covered cargo object in a wooden cart" class="companion-image" id="companion-image">
           </div>
         </div>
       </div>
-      <div style="text-align:center; margin-top:22px;">
-        <p class="gradient-line tone-gold dev-typed-line" style="margin:0;"><span id="haul-text"></span><span class="type-cursor" id="haul-cursor" style="background:#e0bd6a;"></span></p>
-      </div>
-      <div style="text-align:center; margin-top:8px;">
-        <p class="gradient-line tone-gold dev-typed-line" style="margin:0;"><span id="mile-text"></span><span class="type-cursor" id="mile-cursor" style="background:#e0bd6a;"></span></p>
-      </div>
-      <div style="text-align:center; font-family:'EB Garamond', serif; font-size:32px; line-height:1; min-height:1em; margin:8px 0;">
-        <span class="type-cursor" id="blank-cursor" style="background:#e0bd6a;"></span>
-      </div>
-      <div style="text-align:center; font-family:'EB Garamond', serif; font-size:32px; line-height:1; min-height:1em; margin:8px 0;">
-        <span class="type-cursor" id="blank-cursor-2" style="background:#e0bd6a;"></span>
-      </div>
-      <div style="text-align:center; position:relative;">
-        <div class="word-stack">
-          <span class="stack-word" id="ws-word-1"></span> <span class="stack-word" id="ws-word-2"></span> <span class="stack-word" id="ws-word-3"></span><span class="type-cursor" id="ws-cursor" style="background:#e0bd6a;"></span>
-        </div>
-        <span class="seedling-icon" id="seedling-icon">🌱</span>
-      </div>
-      <p style="margin-top:clamp(47px, 7.5vw, 71px); margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
-      <p class="coming-soon">Devlogs and updates — coming soon</p>
+      <p style="margin-top:clamp(19px, 3vw, 28px); margin-bottom:0; font-size:18px; color:#8fd47a;">In development by a solo, founder-led studio from the UK. <a href="about.html" style="color:#8fd47a; font-style:italic; text-decoration:underline; text-decoration-color:rgba(143,212,122,0.45); text-underline-offset:3px; white-space:nowrap;">Read More</a></p>
+      <p class="coming-soon">Images used are placeholders. Devlogs and updates — coming soon.</p>
     </div>
 
     <div class="next-section">
@@ -336,116 +348,23 @@
 
   <script>
     (function(){
-      function typeWords(words, dropDelay, blankBlinkMs1, blankBlinkMs2, handoffMs, onComplete){
-        var els = [document.getElementById('ws-word-1'), document.getElementById('ws-word-2'), document.getElementById('ws-word-3')];
-        var wsCursor = document.getElementById('ws-cursor');
-        var blankCursor = document.getElementById('blank-cursor');
-        var blankCursor2 = document.getElementById('blank-cursor-2');
-        var seedling = document.getElementById('seedling-icon');
-        var seedlingAnchor = seedling ? seedling.parentElement : null;
-        if(!els[0] || !wsCursor || !blankCursor || !blankCursor2) return;
-        // Centred under 'life' (the middle word), sitting below the line with a clear gap —
-        // measured against the text's own box, not the wrapper's margin-inclusive height.
-        // Anchored to the outer wrapper (full-width, stable) rather than .word-stack itself,
-        // since .word-stack is a centered inline-block that grows from the middle outward as
-        // it types — anchoring to it would drag the seedling along for the ride.
-        function positionSeedling(){
-          if(!seedling || !seedlingAnchor) return;
-          var anchorRect = seedlingAnchor.getBoundingClientRect();
-          var lifeRect = els[1].getBoundingClientRect();
-          var lifeCenterX = (lifeRect.left + lifeRect.right) / 2;
-          seedling.style.left = (lifeCenterX - anchorRect.left) + 'px';
-          seedling.style.top = ((lifeRect.bottom - anchorRect.top) + 14) + 'px';
-        }
-        // Measure where the text will end once fully typed, so the seedling can be
-        // positioned there in advance and stay put while the words type in.
-        if(seedling && seedlingAnchor){
-          els[0].textContent = words[0];
-          els[1].textContent = words[1];
-          els[2].textContent = words[2];
-          positionSeedling();
-          els[0].textContent = '';
-          els[1].textContent = '';
-          els[2].textContent = '';
-        }
-        // The measurement above is a one-off snapshot, so it goes stale the moment the
-        // viewport is resized (window resize, device rotation, dev tools toggling, etc.) —
-        // keep it locked centrally under 'life' by re-measuring against whatever's actually
-        // on screen right now, debounced so it isn't re-running on every pixel of a drag.
-        if(seedling && seedlingAnchor){
-          var resizeTimer = null;
-          window.addEventListener('resize', function(){
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function(){
-              var currentWord = els[1].textContent;
-              if(!currentWord){ return; }
-              positionSeedling();
-            }, 120);
-          });
-        }
-        var totalChars = words.join('').length;
-        var typedChars = 0;
-        // Stage 1: after 'will', drop one line to the first blank line — cursor sits there blinking, typing nothing.
-        setTimeout(function(){
-          blankCursor.classList.add('blinking');
-          // Stage 2: drop a second line, to the second blank line — blinks there too.
-          setTimeout(function(){
-            blankCursor.classList.remove('blinking');
-            blankCursor.style.opacity = 0;
-            blankCursor2.classList.add('blinking');
-            // Stage 3: drop a third line, down to the word-stack row, and start typing there.
-            setTimeout(function(){
-              blankCursor2.classList.remove('blinking');
-              blankCursor2.style.opacity = 0;
-              wsCursor.classList.add('blinking');
-              setTimeout(function(){
-                var typingStart = Date.now();
-                wsCursor.style.background = '#7fae6f';
-                var wordIndex = 0, charIndex = 0;
-                function typeChar(){
-                  if(wordIndex >= words.length){
-                    if(seedling){
-                      seedling.style.opacity = 1;
-                      seedling.style.transform = 'translateX(-50%) scale(1)';
-                    }
-                    var elapsed = Date.now() - typingStart;
-                    var remaining = Math.max(0, 10730 - elapsed);
-                    setTimeout(function(){
-                      wsCursor.classList.remove('blinking');
-                      wsCursor.style.opacity = 0;
-                      if(onComplete){ onComplete(); }
-                    }, remaining);
-                    return;
-                  }
-                  var word = words[wordIndex];
-                  if(charIndex < word.length){
-                    els[wordIndex].textContent += word.charAt(charIndex);
-                    charIndex++;
-                    typedChars++;
-                    if(seedling){
-                      var frac = typedChars / totalChars;
-                      seedling.style.opacity = frac;
-                      seedling.style.transform = 'translateX(-50%) scale(' + (0.6 + 0.4 * frac) + ')';
-                    }
-                    setTimeout(typeChar, 100 + Math.random() * 160);
-                  } else {
-                    wordIndex++;
-                    charIndex = 0;
-                    setTimeout(typeChar, 100 + Math.random() * 160);
-                  }
-                }
-                typeChar();
-              }, handoffMs);
-            }, blankBlinkMs2);
-          }, blankBlinkMs1);
-        }, dropDelay);
-      }
-      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId, onComplete){
+      function typeLine(text, startDelay, charDelay, holdAfterMs, textId, cursorId, onComplete, reserveHeight, onStart){
         var span = document.getElementById(textId);
         var cursor = document.getElementById(cursorId);
         if(!span || !cursor) return;
+        // reserveHeight: measure the fully-typed text's rendered height up front and pin the
+        // parent <p> to it, so content sitting below (e.g. the companion image) doesn't get
+        // pushed down line-by-line as the sentence wraps while it's still being typed out.
+        if(reserveHeight && span.parentElement){
+          var parent = span.parentElement;
+          span.textContent = text;
+          var reservedHeight = parent.getBoundingClientRect().height;
+          parent.style.minHeight = reservedHeight + 'px';
+          span.textContent = '';
+        }
         setTimeout(function(){
           cursor.classList.add('blinking');
+          if(onStart){ onStart(); }
           var i = 0;
           function step(){
             if(i < text.length){
@@ -471,15 +390,12 @@
         entries.forEach(function(entry){
           if(entry.isIntersecting){
             project.classList.add('in-view');
-            // Haul line, then drop a line and type "Every measured mile...", each with its own
-            // end-of-line cursor pause, before handing off to the blank-line drop + leaves reveal.
             typeLine('A 3D physics-based survival-adventure', 500, 73, 1100, 'intro-text', 'intro-cursor', function(){
-              typeLine('Haul precious cargo across a barren world.', 300, 73, 1100, 'haul-text', 'haul-cursor', function(){
-                typeLine('Where every measured mile...', 300, 73, 1100, 'mile-text', 'mile-cursor', function(){
-                  typeWords(['leaves', 'life', 'behind.'], 0, 1125, 1125, 340, function(){
-                    typeLine('// the world we build', 300, 152, null, 'world-text', 'world-cursor');
-                  });
-                });
+              typeLine('Haul precious cargo across a barren world,\nwhere every measured mile leaves life behind.', 300, 60, 1100, 'haul-text', 'haul-cursor', function(){
+                typeLine('// the world we build', 300, 152, null, 'world-text', 'world-cursor');
+              }, true, function(){
+                var companionImage = document.getElementById('companion-image');
+                if(companionImage){ companionImage.classList.add('image-in'); }
               });
             });
             obs.unobserve(project);
