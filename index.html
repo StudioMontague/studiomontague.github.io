@@ -238,12 +238,14 @@
     /* same fluid approach as .intro-line. Courier New is exactly 0.6em per character
        (a fixed, documented metric, not an estimate) — "where every measured mile
        leaves life behind." is 46 characters, the longer of the two haul lines, and
-       is the real limiting case here. 12px is a deliberate compromise: a touch
-       bigger than before, but monospace + 46 characters has a hard mathematical
-       floor, so on the very narrowest phones (sub-~375px) this line may still wrap
-       occasionally — the box height is measured live via JS regardless of line
-       count, so it'll size correctly even if that happens, just a touch taller. */
-    font-size:clamp(12px, 8.16px + 1.13vw, 19px);
+       is the real limiting case here. A 12px minimum was tried first but, worked
+       through against the actual available width at real phone sizes (390-430px),
+       it doesn't fit at ANY mainstream phone width, not just "the narrowest ones" —
+       confirmed by a live screenshot wrapping to 4 lines instead of 2. 8.5px is the
+       minimum that genuinely fits down to a 340px-wide viewport with margin to
+       spare; the box height is still measured live via JS regardless of line count,
+       so even in the rare case it wraps below that it'll still size correctly. */
+    font-size:clamp(8.5px, 2.74px + 1.69vw, 19px);
     letter-spacing:normal;
     opacity:1;
   }

@@ -319,8 +319,10 @@ body{
 /* homepage-link icon (studio mascot mark) — sits before Discord in the top icon row.
    It's an <img>, not a font glyph, so it can't pick up color:currentColor like its FA
    siblings; opacity/entrance-animation still come from the shared .icon-row-top a
-   rules above since it's a plain <a> child, this just sizes the image itself and
-   adds a matching subtle hover brighten in place of the colour shift. */
+   rules above since it's a plain <a> child. The hover treatment below is the same
+   cream drop-shadow "glow" used on the footer mark (.footer-badge-icon) — kept
+   identical between the two so both studio-mark icons match each other, not just
+   their own row's neighbours. */
 .icon-row.icon-row-top a.nav-home-icon img{
   display:block;
   width:27px;
@@ -328,7 +330,7 @@ body{
   transition:filter .2s ease;
 }
 .icon-row.icon-row-top a.nav-home-icon:hover img{
-  filter:brightness(1.25);
+  filter:drop-shadow(0 0 5px rgba(239,230,212,0.85)) brightness(1.15);
 }
 .icon-row.icon-row-footer a{
   color:#d0b07f;
@@ -374,32 +376,24 @@ footer a{color:#d0b07f; text-decoration:none;}
 /* studio mark, sits above the motto — same footprint as the footer icon-row buttons
    (34px), keeps the footer's existing top padding as the gap up to the border, and
    pushes the motto (and everything below it) down by its own height + margin.
-   Wrapped in a link (homepage), matching the same mark in the top nav. */
+   Wrapped in a link (homepage), matching the same mark in the top nav — including
+   the exact same cream drop-shadow "glow" hover treatment, so both studio-mark
+   icons (this one and the nav one) are uniform with each other. */
 .footer-badge-link{
   display:block;
   width:34px;
-  height:34px;
   margin:0 auto 14px;
-  border-radius:50%;
-  transition:background .2s ease, box-shadow .2s ease;
 }
 .footer-badge-icon{
   display:block;
   width:34px;
   height:34px;
   opacity:0.92;
-  transition:opacity .2s ease;
-}
-/* hover glow matches the icon-row-footer buttons right below it: same amber
-   background wash and cream ring, just applied round the mark instead of a
-   permanent border (the artwork's already a circle, a resting border would
-   double up on it) */
-.footer-badge-link:hover{
-  background:rgba(201,162,75,0.1);
-  box-shadow:0 0 0 1px rgba(239,230,212,0.4);
+  transition:opacity .2s ease, filter .2s ease;
 }
 .footer-badge-link:hover .footer-badge-icon{
   opacity:1;
+  filter:drop-shadow(0 0 5px rgba(239,230,212,0.85)) brightness(1.15);
 }
 
 /* company motto — sits on every page, same as the banner does */
