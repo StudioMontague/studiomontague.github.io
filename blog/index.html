@@ -79,9 +79,13 @@
     color:#8a9c7f;
     margin:0 0 8px;
   }
+  /* new standard for post titles going forward — EB Garamond rather than Orbitron.
+     Weight 500, not 700: this page's EB Garamond import only actually loads 400/500
+     for upright text (600 exists but only for italic), so 700 would just trigger a
+     synthetic/faux bold, which tends to look muddy on a serif at this size. */
   .post-card-title{
-    font-family:'Orbitron', sans-serif;
-    font-weight:700;
+    font-family:'EB Garamond', serif;
+    font-weight:500;
     font-size:clamp(20px, 2.6vw, 26px);
     letter-spacing:0.02em;
     color:var(--cream);
@@ -197,7 +201,7 @@
 
   <div class="wrap">
     <div class="blog-intro">
-      <p>Progress on the studio and on Seed.Runner, as it happens.</p>
+      <p>News from Studio Montague and updates on Seed.Runner, as they happen:</p>
     </div>
 
     <div class="post-list">
